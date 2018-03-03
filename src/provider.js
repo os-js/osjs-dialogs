@@ -1,4 +1,4 @@
-/*!
+/*
  * OS.js - JavaScript Cloud/Web Desktop Platform
  *
  * Copyright (c) 2011-2018, Anders Evenrud <andersevenrud@gmail.com>
@@ -28,8 +28,22 @@
  * @licence Simplified BSD License
  */
 
-import DialogServiceProvider from './src/provider';
+export default class DialogServiceProvider {
 
-export {
-  DialogServiceProvider
-};
+  constructor(core) {
+    this.core = core;
+  }
+
+  destroy() {
+  }
+
+  async init() {
+    this.core.instance('osjs/dialog', () => {
+    });
+  }
+
+  start() {
+  }
+
+}
+
