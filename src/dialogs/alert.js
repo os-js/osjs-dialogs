@@ -28,7 +28,7 @@
  * @licence Simplified BSD License
  */
 
-import {app} from 'hyperapp';
+import {h, app} from 'hyperapp';
 import Dialog from '../dialog';
 
 /**
@@ -57,7 +57,7 @@ export default class AlertDialog extends Dialog {
   render() {
     super.render(($content) => {
       app({}, {}, (state, actions) => this.createView([
-        String(this.args.message)
+        h('div', {class: 'osjs-dialog-message'}, String(this.args.message))
       ]), $content);
     });
   }

@@ -30,11 +30,12 @@
 
 import {h, app} from 'hyperapp';
 import Dialog from '../dialog';
+import {Progressbar} from '@osjs/gui';
 
 /**
- * Default OS.js Confirm Dialog
+ * Default OS.js Progress Dialog
  */
-export default class ConfirmDialog extends Dialog {
+export default class ProgressDialog extends Dialog {
 
   /**
    * Constructor
@@ -42,32 +43,59 @@ export default class ConfirmDialog extends Dialog {
    * @param {Object} args Arguments given from service creation
    * @param {String} [args.title] Dialog title
    * @param {String} [args.message] Dialog message
-   * @param {Boolean} [args.yesno=true] Yes/No or Ok/Cancel
-   * @param {String[]} [args.buttons] Custom buttons
+   * @param {String} [args.progress] Initial progress value
    * @param {Function} callback The callback function
    */
   constructor(core, args, callback) {
-    const yesno = typeof args.yesno === 'undefined' || args.yesno === true;
-
-    const buttons = args.buttons instanceof Array
-      ? args.buttons
-      : yesno ? ['yes', 'no'] : ['ok', 'cancel'];
-
     super(core, args, {
-      className: 'confirm',
+      className: 'progress',
+      buttons: ['cancel'],
       window: {
-        title: args.title || 'Confirm'
-      },
-      buttons
+        title: args.title || 'Progress',
+        attributes: {
+          minDimension: {
+            width: 500,
+            height: 170
+          }
+        }
+      }
     }, callback);
+
+    this.value = this.args.progress || 0;
+    this.status = this.args.status || '';
+    this.app = null;
   }
 
   render() {
     super.render(($content) => {
-      app({}, {}, (state, actions) => this.createView([
-        h('div', {class: 'osjs-dialog-message'}, String(this.args.message))
+      this.app = app({
+        progress: this.value,
+        status: this.status
+      }, {
+        setProgress: progress => state => ({progress}),
+        setStatus: status => state => ({status})
+      }, (state, actions) => this.createView([
+        h('div', {class: 'osjs-dialog-message'}, String(this.args.message)),
+        h('div', {class: 'osjs-dialog-status'}, String(state.status)),
+        h(Progressbar, {value: state.progress})
       ]), $content);
     });
+  }
+
+  /**
+   * Set the progress value
+   * @param {Number} value A value between 0 and 100
+   */
+  setProgress(value) {
+    this.app.setProgress(value);
+  }
+
+  /**
+   * Set the status text
+   * @param {String} status Status text
+   */
+  setStatus(status) {
+    this.app.setStatus(status);
   }
 
 }

@@ -31,6 +31,7 @@
 import AlertDialog from './dialogs/alert';
 import ConfirmDialog from './dialogs/confirm';
 import PromptDialog from './dialogs/prompt';
+import ProgressDialog from './dialogs/progress';
 
 export default class DialogServiceProvider {
 
@@ -39,7 +40,8 @@ export default class DialogServiceProvider {
     this.dialogs = {
       alert: AlertDialog,
       confirm: ConfirmDialog,
-      prompt: PromptDialog
+      prompt: PromptDialog,
+      progress: ProgressDialog
     };
   }
 

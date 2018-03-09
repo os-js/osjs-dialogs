@@ -32,10 +32,12 @@ import DialogServiceProvider from './src/provider';
 import AlertDialog from './src/dialogs/alert';
 import ConfirmDialog from './src/dialogs/confirm';
 import PromptDialog from './src/dialogs/prompt';
+import ProgressDialog from './src/dialogs/progress';
 
 export {
   AlertDialog,
   ConfirmDialog,
   PromptDialog,
+  ProgressDialog,
   DialogServiceProvider
 };
