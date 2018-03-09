@@ -1,0 +1,5 @@
+*.swp
+*.swo
+.tern-*
+node_modules
+package-lock.json
