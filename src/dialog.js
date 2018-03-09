@@ -142,10 +142,25 @@ export default class Dialog {
     this.win.render(cb);
     this.win.focus();
 
-    this.win.on('dialog:button', (name, ev) => {
-      this.callback(name, this.value, ev);
+    let called;
+    const callback = (...args) => {
+      if (called) {
+        return;
+      }
+      called = true;
 
+      console.debug('Callback in dialog', args);
+
+      this.callback(...args);
+    };
+
+    this.win.on('dialog:button', (name, ev) => {
+      callback(name, this.value, ev);
       this.destroy();
+    });
+
+    this.win.on('destroy', () => {
+      callback('destroy', this.value, null);
     });
   }
 
@@ -171,8 +186,7 @@ export default class Dialog {
    */
   createButtons() {
     const onclick = (n, ev) => {
-      console.debug('Clicked', n, 'in dialog - value was', this.value);
-      this.win.emit('dialog:button', n, this.value, ev);
+      this.win.emit('dialog:button', n, ev);
     };
 
     return this.buttons.map(b => h(Button, Object.assign({}, {
