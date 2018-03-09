@@ -28,6 +28,17 @@
  * @licence Simplified BSD License
  */
 
+.osjs-dialog {
+  & > .osjs-window-inner {
+    & > .osjs-window-content {
+      & > .osjs-gui-box {
+        width: auto;
+        height: auto;
+      }
+    }
+  }
+}
+
 .osjs-dialog-buttons {
   & > .osjs-gui-toolbar {
     justify-content: flex-end;
@@ -37,4 +48,5 @@
 .osjs-dialog-status,
 .osjs-dialog-message {
   margin-bottom: 1em;
+  min-height: 1em;
 }

@@ -56,7 +56,7 @@ export default class ProgressDialog extends Dialog {
         attributes: {
           minDimension: {
             width: 500,
-            height: 170
+            height: 100
           }
         }
       }

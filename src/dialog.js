@@ -138,10 +138,6 @@ export default class Dialog {
    * @param {Function} cb Callback from window
    */
   render(cb) {
-    this.win.init();
-    this.win.render(cb);
-    this.win.focus();
-
     let called;
     const callback = (...args) => {
       if (called) {
@@ -162,6 +158,14 @@ export default class Dialog {
     this.win.on('destroy', () => {
       callback('destroy', this.value, null);
     });
+
+    this.win.on('render', () => {
+      this.win.resizeFit();
+    });
+
+    this.win.init();
+    this.win.render(cb);
+    this.win.focus();
   }
 
   /**
@@ -171,7 +175,7 @@ export default class Dialog {
    */
   createView(children) {
     return h(Box, {}, [
-      h(BoxContainer, {grow: 1, shrink: 1}, children),
+      h(BoxContainer, {grow: 1}, children),
       h(BoxContainer, {class: 'osjs-dialog-buttons'}, [
         h(Toolbar, {}, [
           ...this.createButtons()
