@@ -29,6 +29,7 @@
  */
 
 import {h} from 'hyperapp';
+import merge from 'deepmerge';
 import {
   Box,
   BoxContainer,
@@ -62,6 +63,31 @@ const defaultButton = n => {
   return {label: n, name: n};
 };
 
+/*
+ * Creates options
+ */
+const createOptions = (options, args) =>
+  merge({
+    id: null,
+    className: 'unknown',
+    defaultValue: null,
+    buttons: [],
+    window: {
+      id: options.id || 'Dialog_' + String(dialogCount),
+      title: 'Dialog',
+      attributes: {
+        classNames: [
+          'osjs-dialog',
+          `osjs-${options.className || 'unknown'}-dialog`
+        ],
+        minDimension: {
+          width: 300,
+          height: 100
+        },
+      }
+    }
+  }, options);
+
 /**
  * OS.js default Dialog implementation
  *
@@ -74,36 +100,15 @@ export default class Dialog {
    * @param {Core} core OS.js Core reference
    * @param {Object} args Arguments given from service creation
    * @param {Object} options Dialog options (including Window)
+   * @param {Object} [options.defaultValue] Default callback value
    * @param {Function} callback The callback function
    */
   constructor(core, args, options, callback) {
     this.args = args;
     this.callback = callback || function() {};
-    this.options = Object.assign({}, {
-      id: null,
-      className: 'unknown',
-      window: {
-        id: null,
-        title: 'Alert',
-      },
-      buttons: ['ok', 'close', 'cancel', 'yes', 'no']
-    }, options);
-
-    const windowOptions = Object.assign({}, {
-      id: this.options.id || 'Dialog_' + String(dialogCount),
-      attributes: {
-        classNames: [
-          'osjs-dialog',
-          `osjs-${this.options.className}-dialog`
-        ],
-        minDimension: {
-          width: 300,
-          height: 100
-        },
-      }
-    }, this.options.window);
-
-    this.win = core.make('osjs/window', windowOptions);
+    this.options = createOptions(options, args);
+    this.win = core.make('osjs/window', this.options.window);
+    this.value = undefined;
     this.buttons = this.options.buttons.map(n =>
       typeof n === 'string'
         ? defaultButton(n)
@@ -134,7 +139,7 @@ export default class Dialog {
     this.win.focus();
 
     this.win.on('dialog:button', (name, ev) => {
-      this.callback(name, ev);
+      this.callback(name, this.value, ev);
 
       this.destroy();
     });
@@ -147,7 +152,7 @@ export default class Dialog {
    */
   createView(children) {
     return h(Box, {}, [
-      h(BoxContainer, {grow: 1}, children),
+      h(BoxContainer, {grow: 1, shrink: 1}, children),
       h(BoxContainer, {class: 'osjs-dialog-buttons'}, [
         h(Toolbar, {}, [
           ...this.createButtons()
@@ -162,13 +167,23 @@ export default class Dialog {
    */
   createButtons() {
     const onclick = (n, ev) => {
-      console.debug('Clicked', n, 'in dialog');
-      this.win.emit('dialog:button', n, ev);
+      console.debug('Clicked', n, 'in dialog - value was', this.value);
+      this.win.emit('dialog:button', n, this.value, ev);
     };
 
     return this.buttons.map(b => h(Button, Object.assign({}, {
       onclick: ev => onclick(b.name, ev)
     }, b)));
+  }
+
+  /**
+   * Gets the dialog result value
+   * @return {*}
+   */
+  getValue() {
+    return typeof this.value === 'undefined'
+      ? this.options.defaultValue
+      : this.value;
   }
 
 }

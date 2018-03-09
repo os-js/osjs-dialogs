@@ -1,4 +1,4 @@
-/*!
+/*
  * OS.js - JavaScript Cloud/Web Desktop Platform
  *
  * Copyright (c) 2011-2018, Anders Evenrud <andersevenrud@gmail.com>
@@ -28,14 +28,48 @@
  * @licence Simplified BSD License
  */
 
-import DialogServiceProvider from './src/provider';
-import AlertDialog from './src/dialogs/alert';
-import ConfirmDialog from './src/dialogs/confirm';
-import PromptDialog from './src/dialogs/prompt';
+import {h, app} from 'hyperapp';
+import Dialog from '../dialog';
+import {Input} from '@osjs/gui';
 
-export {
-  AlertDialog,
-  ConfirmDialog,
-  PromptDialog,
-  DialogServiceProvider
-};
+/**
+ * Default OS.js Prompt Dialog
+ */
+export default class PromptDialog extends Dialog {
+
+  /**
+   * Constructor
+   * @param {Core} core OS.js Core reference
+   * @param {Object} args Arguments given from service creation
+   * @param {String} [args.title] Dialog title
+   * @param {String} [args.message] Dialog message
+   * @param {Function} callback The callback function
+   */
+  constructor(core, args, callback) {
+    super(core, args, {
+      className: 'prompt',
+      buttons: ['ok', 'cancel'],
+      window: {
+        title: args.title || 'Prompt',
+        attributes: {
+          minDimension: {
+            width: 500,
+            height: 200
+          }
+        }
+      }
+    }, callback);
+  }
+
+  render() {
+    super.render(($content) => {
+      app({}, {}, (state, actions) => this.createView([
+        h('div', {}, String(this.args.message)),
+        h(Input, {type: 'text', oninput: (value) => {
+          this.value = value;
+        }})
+      ]), $content);
+    });
+  }
+
+}

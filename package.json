@@ -18,6 +18,7 @@
   "license": "BSD-2-Clause",
   "dependencies": {
     "@osjs/gui": "^3.0.0",
+    "deepmerge": "^2.1.0",
     "hyperapp": "^1.1.2"
   },
   "bugs": {
