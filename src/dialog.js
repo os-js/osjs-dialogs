@@ -33,8 +33,44 @@ import {Button} from '@osjs/gui';
 
 let dialogCount = 0;
 
+/*
+ * Default button attributes
+ */
+const defaultButtons = {
+  ok: {label: 'Ok'},
+  close: {label: 'Close'},
+  cancel: {label: 'Cancel'},
+  yes: {label: 'Yes'},
+  no: {label: 'No'}
+};
+
+/*
+ * Creates a button from name
+ */
+const defaultButton = n => {
+  if (defaultButtons[n]) {
+    return Object.assign({}, {
+      name: n
+    }, defaultButtons[n]);
+  }
+
+  return {label: n, name: n};
+};
+
+/**
+ * OS.js default Dialog implementation
+ *
+ * Creates a Window with predefined content and actions(s)
+ */
 export default class Dialog {
 
+  /**
+   * Constructor
+   * @param {Core} core OS.js Core reference
+   * @param {Object} args Arguments given from service creation
+   * @param {Object} options Dialog options (including Window)
+   * @param {Function} callback The callback function
+   */
   constructor(core, args, options, callback) {
     this.args = args;
     this.callback = callback || function() {};
@@ -63,16 +99,30 @@ export default class Dialog {
     }, this.options.window);
 
     this.win = core.make('osjs/window', windowOptions);
+    this.buttons = this.options.buttons.map(n =>
+      typeof n === 'string'
+        ? defaultButton(n)
+        : {
+          label: n.label || 'button',
+          name: n.name || 'unknown'
+        });
 
     dialogCount++;
   }
 
+  /**
+   * Destroys the dialog
+   */
   destroy() {
     this.win.destroy();
     this.win = null;
     this.callback = null;
   }
 
+  /**
+   * Renders the dialog
+   * @param {Function} cb Callback from window
+   */
   render(cb) {
     this.win.init();
     this.win.render(cb);
@@ -85,24 +135,19 @@ export default class Dialog {
     });
   }
 
+  /**
+   * Gets the button (virtual) DOM elements
+   * @return {Object[]}
+   */
   getButtons() {
     const onclick = (n, ev) => {
       console.debug('Clicked', n, 'in dialog');
-      this.win.emit('dialog:button', n, ev)
+      this.win.emit('dialog:button', n, ev);
     };
 
-    const label = b => typeof b === 'string'
-      ? b
-      : b.label || 'button';
-
-    const value = b => typeof b === 'string'
-      ? b
-      : b.name || 'unknown';
-
-    return this.options.buttons.map(b => h(Button, {
-      label: label(b),
-      onclick: ev => onclick(value(b), ev)
-    }));
+    return this.buttons.map(b => h(Button, Object.assign({}, {
+      onclick: ev => onclick(b.name, ev)
+    }, b)));
   }
 
 }

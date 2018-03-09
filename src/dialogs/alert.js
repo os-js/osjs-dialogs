@@ -35,6 +35,9 @@ import {
   BoxContainer
 } from '@osjs/gui';
 
+/**
+ * Default OS.js Alert Dialog
+ */
 export default class AlertDialog extends Dialog {
 
   constructor(core, args, callback) {
