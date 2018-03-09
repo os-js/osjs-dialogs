@@ -29,7 +29,9 @@
  */
 
 import DialogServiceProvider from './src/provider';
+import AlertDialog from './src/dialogs/alert';
 
 export {
+  AlertDialog,
   DialogServiceProvider
 };

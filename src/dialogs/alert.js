@@ -28,38 +28,39 @@
  * @licence Simplified BSD License
  */
 
-import AlertDialog from './dialogs/alert';
+import {h, app} from 'hyperapp';
+import Dialog from '../dialog';
+import {
+  Box,
+  BoxContainer
+} from '@osjs/gui';
 
-export default class DialogServiceProvider {
+export default class AlertDialog extends Dialog {
 
-  constructor(core) {
-    this.core = core;
-    this.dialogs = {
-      alert: AlertDialog
-    };
+  constructor(core, args, callback) {
+    super(core, args, {
+      className: 'alert',
+      window: {
+        title: args.title || 'Alert Dialog'
+      },
+      buttons: ['close']
+    }, callback);
   }
 
-  destroy() {
-  }
+  render() {
+    const view = (state, actions) =>
+      h(Box, {}, [
+        h(BoxContainer, {grow: 1}, [
+          String(this.args.message)
+        ]),
+        h(BoxContainer, {class: 'osjs-dialog-buttons'}, [
+          ...this.getButtons()
+        ])
+      ]);
 
-  async init() {
-    this.core.instance('osjs/dialog', (name, args = {}, callback = function() {}) => {
-      if (!this.dialogs[name]) {
-        throw new Error(`Dialog '${name}' does not exist`);
-      }
-
-      if (typeof callback !== 'function') {
-        throw new Error(`Dialog requires a callback`);
-      }
-
-      const instance = new this.dialogs[name](this.core, args, callback);
-      instance.render();
-      return instance;
+    super.render(($content) => {
+      app({}, {}, view, $content);
     });
   }
 
-  start() {
-  }
-
 }
-

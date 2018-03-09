@@ -28,38 +28,81 @@
  * @licence Simplified BSD License
  */
 
-import AlertDialog from './dialogs/alert';
+import {h} from 'hyperapp';
+import {Button} from '@osjs/gui';
 
-export default class DialogServiceProvider {
+let dialogCount = 0;
 
-  constructor(core) {
-    this.core = core;
-    this.dialogs = {
-      alert: AlertDialog
-    };
+export default class Dialog {
+
+  constructor(core, args, options, callback) {
+    this.args = args;
+    this.callback = callback || function() {};
+    this.options = Object.assign({}, {
+      id: null,
+      className: 'unknown',
+      window: {
+        id: null,
+        title: 'Alert',
+      },
+      buttons: ['ok', 'close', 'cancel', 'yes', 'no']
+    }, options);
+
+    const windowOptions = Object.assign({}, {
+      id: this.options.id || 'Dialog_' + String(dialogCount),
+      attributes: {
+        classNames: [
+          'osjs-dialog',
+          `osjs-${this.options.className}-dialog`
+        ],
+        minDimension: {
+          width: 300,
+          height: 100
+        },
+      }
+    }, this.options.window);
+
+    this.win = core.make('osjs/window', windowOptions);
+
+    dialogCount++;
   }
 
   destroy() {
+    this.win.destroy();
+    this.win = null;
+    this.callback = null;
   }
 
-  async init() {
-    this.core.instance('osjs/dialog', (name, args = {}, callback = function() {}) => {
-      if (!this.dialogs[name]) {
-        throw new Error(`Dialog '${name}' does not exist`);
-      }
+  render(cb) {
+    this.win.init();
+    this.win.render(cb);
+    this.win.focus();
 
-      if (typeof callback !== 'function') {
-        throw new Error(`Dialog requires a callback`);
-      }
+    this.win.on('dialog:button', (name, ev) => {
+      this.callback(name, ev);
 
-      const instance = new this.dialogs[name](this.core, args, callback);
-      instance.render();
-      return instance;
+      this.destroy();
     });
   }
 
-  start() {
+  getButtons() {
+    const onclick = (n, ev) => {
+      console.debug('Clicked', n, 'in dialog');
+      this.win.emit('dialog:button', n, ev)
+    };
+
+    const label = b => typeof b === 'string'
+      ? b
+      : b.label || 'button';
+
+    const value = b => typeof b === 'string'
+      ? b
+      : b.name || 'unknown';
+
+    return this.options.buttons.map(b => h(Button, {
+      label: label(b),
+      onclick: ev => onclick(value(b), ev)
+    }));
   }
 
 }
-
