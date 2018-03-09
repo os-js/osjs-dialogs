@@ -43,6 +43,7 @@ export default class ProgressDialog extends Dialog {
    * @param {Object} args Arguments given from service creation
    * @param {String} [args.title] Dialog title
    * @param {String} [args.message] Dialog message
+   * @param {String} [args.status] Dialog status message
    * @param {String} [args.progress] Initial progress value
    * @param {Function} callback The callback function
    */

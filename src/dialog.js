@@ -76,6 +76,10 @@ const createOptions = (options, args) =>
       id: options.id || 'Dialog_' + String(dialogCount),
       title: 'Dialog',
       attributes: {
+        gravity: 'center',
+        resizable: false,
+        maximizable: false,
+        minimizable: false,
         classNames: [
           'osjs-dialog',
           `osjs-${options.className || 'unknown'}-dialog`
