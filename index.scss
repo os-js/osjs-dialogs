@@ -29,5 +29,7 @@
  */
 
 .osjs-dialog-buttons {
-  text-align: right;
+  & > .osjs-gui-toolbar {
+    justify-content: flex-end;
+  }
 }

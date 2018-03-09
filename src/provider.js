@@ -29,13 +29,15 @@
  */
 
 import AlertDialog from './dialogs/alert';
+import ConfirmDialog from './dialogs/confirm';
 
 export default class DialogServiceProvider {
 
   constructor(core) {
     this.core = core;
     this.dialogs = {
-      alert: AlertDialog
+      alert: AlertDialog,
+      confirm: ConfirmDialog
     };
   }
 

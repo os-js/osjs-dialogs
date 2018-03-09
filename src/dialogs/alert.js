@@ -28,41 +28,37 @@
  * @licence Simplified BSD License
  */
 
-import {h, app} from 'hyperapp';
+import {app} from 'hyperapp';
 import Dialog from '../dialog';
-import {
-  Box,
-  BoxContainer
-} from '@osjs/gui';
 
 /**
  * Default OS.js Alert Dialog
  */
 export default class AlertDialog extends Dialog {
 
+  /**
+   * Constructor
+   * @param {Core} core OS.js Core reference
+   * @param {Object} args Arguments given from service creation
+   * @param {String} [args.title] Dialog title
+   * @param {String} [args.message] Dialog message
+   * @param {Function} callback The callback function
+   */
   constructor(core, args, callback) {
     super(core, args, {
       className: 'alert',
       window: {
-        title: args.title || 'Alert Dialog'
+        title: args.title || 'Alert'
       },
       buttons: ['close']
     }, callback);
   }
 
   render() {
-    const view = (state, actions) =>
-      h(Box, {}, [
-        h(BoxContainer, {grow: 1}, [
-          String(this.args.message)
-        ]),
-        h(BoxContainer, {class: 'osjs-dialog-buttons'}, [
-          ...this.getButtons()
-        ])
-      ]);
-
     super.render(($content) => {
-      app({}, {}, view, $content);
+      app({}, {}, (state, actions) => this.createView([
+        String(this.args.message)
+      ]), $content);
     });
   }
 

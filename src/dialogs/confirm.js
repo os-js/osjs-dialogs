@@ -1,4 +1,4 @@
-/*!
+/*
  * OS.js - JavaScript Cloud/Web Desktop Platform
  *
  * Copyright (c) 2011-2018, Anders Evenrud <andersevenrud@gmail.com>
@@ -28,12 +28,47 @@
  * @licence Simplified BSD License
  */
 
-import DialogServiceProvider from './src/provider';
-import AlertDialog from './src/dialogs/alert';
-import ConfirmDialog from './src/dialogs/confirm';
+import {app} from 'hyperapp';
+import Dialog from '../dialog';
 
-export {
-  AlertDialog,
-  ConfirmDialog,
-  DialogServiceProvider
-};
+/**
+ * Default OS.js Confirm Dialog
+ */
+export default class ConfirmDialog extends Dialog {
+
+  /**
+   * Constructor
+   * @param {Core} core OS.js Core reference
+   * @param {Object} args Arguments given from service creation
+   * @param {String} [args.title] Dialog title
+   * @param {String} [args.message] Dialog message
+   * @param {Boolean} [args.yesno=true] Yes/No or Ok/Cancel
+   * @param {String[]} [args.buttons] Custom buttons
+   * @param {Function} callback The callback function
+   */
+  constructor(core, args, callback) {
+    const yesno = typeof args.yesno === 'undefined' || args.yesno === true;
+
+    const buttons = args.buttons instanceof Array
+      ? args.buttons
+      : yesno ? ['yes', 'no'] : ['ok', 'cancel'];
+
+    super(core, args, {
+      className: 'confirm',
+      window: {
+        title: args.title || 'Confirm'
+      },
+      buttons
+    }, callback);
+  }
+
+  render() {
+    super.render(($content) => {
+      app({}, {}, (state, actions) => this.createView([
+        String(this.args.message)
+      ]), $content);
+    });
+  }
+
+}
+

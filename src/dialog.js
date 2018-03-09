@@ -29,7 +29,12 @@
  */
 
 import {h} from 'hyperapp';
-import {Button} from '@osjs/gui';
+import {
+  Box,
+  BoxContainer,
+  Button,
+  Toolbar
+} from '@osjs/gui';
 
 let dialogCount = 0;
 
@@ -136,10 +141,26 @@ export default class Dialog {
   }
 
   /**
-   * Gets the button (virtual) DOM elements
-   * @return {Object[]}
+   * Creates the default view
+   * @param {Object[]} children Child nodes
+   * @return {Object} Virtual dom node
    */
-  getButtons() {
+  createView(children) {
+    return h(Box, {}, [
+      h(BoxContainer, {grow: 1}, children),
+      h(BoxContainer, {class: 'osjs-dialog-buttons'}, [
+        h(Toolbar, {}, [
+          ...this.createButtons()
+        ])
+      ])
+    ]);
+  }
+
+  /**
+   * Gets the button (virtual) DOM elements
+   * @return {Object[]} Virtual dom node children list
+   */
+  createButtons() {
     const onclick = (n, ev) => {
       console.debug('Clicked', n, 'in dialog');
       this.win.emit('dialog:button', n, ev);
