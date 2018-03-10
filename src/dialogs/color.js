@@ -113,7 +113,7 @@ const colorFromClick = (ev, canvas) => {
 };
 
 /**
- * Default OS.js Prompt Dialog
+ * Default OS.js Color Dialog
  */
 export default class ColorDialog extends Dialog {
 

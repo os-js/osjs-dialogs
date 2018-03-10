@@ -33,6 +33,7 @@ import ConfirmDialog from './dialogs/confirm';
 import PromptDialog from './dialogs/prompt';
 import ProgressDialog from './dialogs/progress';
 import ColorDialog from './dialogs/color';
+import FontDialog from './dialogs/font';
 
 export default class DialogServiceProvider {
 
@@ -43,7 +44,8 @@ export default class DialogServiceProvider {
       confirm: ConfirmDialog,
       prompt: PromptDialog,
       progress: ProgressDialog,
-      color: ColorDialog
+      color: ColorDialog,
+      font: FontDialog
     };
   }
 
