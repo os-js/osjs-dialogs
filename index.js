@@ -33,11 +33,13 @@ import AlertDialog from './src/dialogs/alert';
 import ConfirmDialog from './src/dialogs/confirm';
 import PromptDialog from './src/dialogs/prompt';
 import ProgressDialog from './src/dialogs/progress';
+import ColorDialog from './src/dialogs/color';
 
 export {
   AlertDialog,
   ConfirmDialog,
   PromptDialog,
   ProgressDialog,
+  ColorDialog,
   DialogServiceProvider
 };
