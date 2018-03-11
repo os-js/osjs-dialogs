@@ -149,7 +149,7 @@ export default class FontDialog extends Dialog {
               fill: true,
               type: 'textarea',
               value: this.args.text,
-              style: {
+              inputStyle: {
                 fontFamily: state.name,
                 fontSize: `${state.size}${this.args.unit}`,
                 fontWeight: state.style === 'bold' ? 'bold' : 'normal',
