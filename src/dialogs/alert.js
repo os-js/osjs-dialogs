@@ -56,8 +56,7 @@ export default class AlertDialog extends Dialog {
     super(core, args, {
       className: 'alert',
       window: {
-        title: args.title,
-        parent: args.parent
+        title: args.title
       },
       buttons: ['close']
     }, callback);

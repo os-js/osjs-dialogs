@@ -111,7 +111,9 @@ export default class Dialog {
     this.args = args;
     this.callback = callback || function() {};
     this.options = createOptions(options, args);
-    this.win = core.make('osjs/window', this.options.window);
+    this.win = core.make('osjs/window', Object.assign({}, {
+      parent: args.parent
+    }, this.options.window));
     this.value = undefined;
     this.buttons = this.options.buttons.map(n =>
       typeof n === 'string'
