@@ -29,6 +29,7 @@
  */
 
 import {h, app} from 'hyperapp';
+import {Box, BoxContainer} from '@osjs/gui';
 import Dialog from '../dialog';
 
 /**
@@ -42,13 +43,21 @@ export default class AlertDialog extends Dialog {
    * @param {Object} args Arguments given from service creation
    * @param {String} [args.title] Dialog title
    * @param {String} [args.message] Dialog message
+   * @param {String} [args.type] Alert type (info/warning/error)
    * @param {Function} callback The callback function
    */
   constructor(core, args, callback) {
+    args = Object.assign({}, {
+      title: 'Alert',
+      type: 'info',
+      message: ''
+    }, args);
+
     super(core, args, {
       className: 'alert',
       window: {
-        title: args.title || 'Alert'
+        title: args.title,
+        parent: args.parent
       },
       buttons: ['close']
     }, callback);
@@ -57,7 +66,9 @@ export default class AlertDialog extends Dialog {
   render() {
     super.render(($content) => {
       app({}, {}, (state, actions) => this.createView([
-        h('div', {class: 'osjs-dialog-message'}, String(this.args.message))
+        h(Box, {}, h(BoxContainer, {}, [
+          h('div', {class: 'osjs-dialog-message'}, String(this.args.message))
+        ]))
       ]), $content);
     });
   }
