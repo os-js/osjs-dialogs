@@ -29,7 +29,13 @@
  */
 
 import {h, app} from 'hyperapp';
-import {Box, BoxContainer} from '@osjs/gui';
+import {
+  Box,
+  BoxContainer,
+  Input,
+  ListView,
+  adapters
+} from '@osjs/gui';
 import Dialog from '../dialog';
 
 /**
@@ -47,7 +53,9 @@ export default class FileDialog extends Dialog {
   constructor(core, args, callback) {
     args = Object.assign({}, {
       title: null,
-      type: 'open'
+      type: 'open',
+      path: '/',
+      filename: null
     }, args);
 
     const title = args.title
@@ -57,7 +65,14 @@ export default class FileDialog extends Dialog {
     super(core, args, {
       className: 'file',
       window: {
-        title
+        title,
+        attributes: {
+          resizable: true
+        },
+        dimension: {
+          width: 400,
+          height: 400
+        }
       },
       buttons: ['ok', 'cancel']
     }, callback);
@@ -65,11 +80,69 @@ export default class FileDialog extends Dialog {
 
   render() {
     super.render(($content) => {
-      app({}, {}, (state, actions) => this.createView([
-        h(Box, {}, h(BoxContainer, {}, [
-          h('div', {class: 'osjs-dialog-message'}, String(this.args.message))
-        ]))
+      const a = app({
+        filename: this.filename,
+        listview: adapters.listview.state({
+          onselect: (item) => {
+            a.setFilename(item.isFile ? item.filename : null);
+            this.value = item.isFile ? item : null;
+          },
+          onactivate: (item) => {
+            if (item.isDirectory) {
+              a.setFilename(null);
+              a.setPath(item.path);
+            }
+          },
+          class: 'osjs-gui-absolute-fill',
+          columns: [{
+            label: 'Name'
+          }, {
+            label: 'Type'
+          }, {
+            label: 'Size'
+          }]
+        })
+      }, {
+        _readdir: ({path, files}) => (state, actions) => {
+          const listview = state.listview;
+          listview.selectedIndex = -1;
+          listview.rows = files.map(file => ({
+            columns: [{label: file.filename}, file.mime, file.humanSize],
+            data: file
+          }));
+
+          return {path, listview};
+        },
+
+        setPath: (path = '/') => async (state, actions) => {
+          if (typeof path !== 'string') {
+            path = path.path;
+          }
+
+          const files = await this.core.make('osjs/vfs')
+            .readdir(path);
+
+          actions._readdir({path, files});
+        },
+
+        setFilename: filename => state => ({filename}),
+
+        listview: adapters.listview.actions()
+      }, (state, actions) => this.createView([
+        h(Box, {class: 'osjs-gui-absolute-fill'}, [
+          h(BoxContainer, {}, [
+            h(Input, {type: 'select', choices: {a: 'Filesystem A', b: 'Filesystem B'}})
+          ]),
+          h(BoxContainer, {grow: 1}, [
+            h(ListView, adapters.listview.proxy(state.listview, actions.listview))
+          ]),
+          h(BoxContainer, {style: {display: this.args.type === 'save' ? null : 'none'}}, [
+            h(Input, {type: 'text', placeholder: 'Filename', value: state.filename})
+          ]),
+        ])
       ]), $content);
+
+      a.setPath(this.args.path);
     });
   }
 
