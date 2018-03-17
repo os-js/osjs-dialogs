@@ -55,7 +55,8 @@ export default class FileDialog extends Dialog {
       title: null,
       type: 'open',
       path: '/',
-      filename: null
+      filename: null,
+      mime: []
     }, args);
 
     const title = args.title
@@ -120,7 +121,17 @@ export default class FileDialog extends Dialog {
           }
 
           const files = await this.core.make('osjs/vfs')
-            .readdir(path);
+          .readdir(path, {
+            filter: (item) => {
+              if (this.args.mime) {
+                return item.mime
+                  ? this.args.mime.some(test => (new RegExp(test)).test(item.mime))
+                  : true;
+              }
+
+              return true;
+            }
+          });
 
           actions._readdir({path, files});
         },
