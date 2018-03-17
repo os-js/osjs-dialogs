@@ -108,6 +108,7 @@ export default class Dialog {
    * @param {Function} callback The callback function
    */
   constructor(core, args, options, callback) {
+    this.core = core;
     this.args = args;
     this.callback = callback || function() {};
     this.options = createOptions(options, args);
