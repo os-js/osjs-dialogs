@@ -28,50 +28,49 @@
  * @licence Simplified BSD License
  */
 
-import AlertDialog from './dialogs/alert';
-import ConfirmDialog from './dialogs/confirm';
-import PromptDialog from './dialogs/prompt';
-import ProgressDialog from './dialogs/progress';
-import ColorDialog from './dialogs/color';
-import FontDialog from './dialogs/font';
-import FileDialog from './dialogs/file';
+import {h, app} from 'hyperapp';
+import {Box, BoxContainer} from '@osjs/gui';
+import Dialog from '../dialog';
 
-export default class DialogServiceProvider {
+/**
+ * Default OS.js File Dialog
+ */
+export default class FileDialog extends Dialog {
 
-  constructor(core) {
-    this.core = core;
-    this.dialogs = {
-      alert: AlertDialog,
-      confirm: ConfirmDialog,
-      prompt: PromptDialog,
-      progress: ProgressDialog,
-      color: ColorDialog,
-      font: FontDialog,
-      file: FileDialog
-    };
+  /**
+   * Constructor
+   * @param {Core} core OS.js Core reference
+   * @param {Object} args Arguments given from service creation
+   * @param {String} [args.title] Dialog title
+   * @param {Function} callback The callback function
+   */
+  constructor(core, args, callback) {
+    args = Object.assign({}, {
+      title: null,
+      type: 'open'
+    }, args);
+
+    const title = args.title
+      ? args.title
+      : (args.type === 'open' ? 'Open file' : 'Save file');
+
+    super(core, args, {
+      className: 'file',
+      window: {
+        title
+      },
+      buttons: ['ok', 'cancel']
+    }, callback);
   }
 
-  destroy() {
-  }
-
-  async init() {
-    this.core.instance('osjs/dialog', (name, args = {}, callback = function() {}) => {
-      if (!this.dialogs[name]) {
-        throw new Error(`Dialog '${name}' does not exist`);
-      }
-
-      if (typeof callback !== 'function') {
-        throw new Error(`Dialog requires a callback`);
-      }
-
-      const instance = new this.dialogs[name](this.core, args, callback);
-      instance.render();
-      return instance;
+  render() {
+    super.render(($content) => {
+      app({}, {}, (state, actions) => this.createView([
+        h(Box, {}, h(BoxContainer, {}, [
+          h('div', {class: 'osjs-dialog-message'}, String(this.args.message))
+        ]))
+      ]), $content);
     });
   }
 
-  start() {
-  }
-
 }
-
