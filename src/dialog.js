@@ -178,7 +178,7 @@ export default class Dialog {
    */
   createView(children) {
     return h(Box, {}, [
-      h(BoxContainer, {grow: 1, padding: false}, children),
+      ...children,
       h(BoxContainer, {class: 'osjs-dialog-buttons'}, [
         h(Toolbar, {}, [
           ...this.createButtons()

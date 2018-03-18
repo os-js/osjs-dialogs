@@ -121,45 +121,43 @@ export default class FontDialog extends Dialog {
 
     super.render(($content) => {
       app(initialState, initialActions, (state, actions) => this.createView([
-        h(Box, {}, [
-          h(BoxContainer, {padding: false}, [
-            h(Box, {orientation: 'vertical'}, [
-              h(BoxContainer, {shrink: 1}, h(Input, {
-                type: 'select',
-                value: state.size,
-                choices: fontSizes,
-                onchange: v => actions.setSize(v)
-              })),
-              h(BoxContainer, {grow: 1}, h(Input, {
-                type: 'select',
-                value: state.font,
-                choices: fontNames,
-                onchange: v => actions.setFont(v)
-              })),
-              h(BoxContainer, {shrink: 1}, h(Input, {
-                type: 'select',
-                value: state.size,
-                choices: fontStyles,
-                onchange: v => actions.setStyle(v)
-              }))
-            ])
-          ]),
-          h(BoxContainer, {grow: 0, shrink: 1}, [
-            h(Input, {
-              fill: true,
-              type: 'textarea',
-              value: this.args.text,
-              inputStyle: {
-                fontFamily: state.name,
-                fontSize: `${state.size}${this.args.unit}`,
-                fontWeight: state.style === 'bold' ? 'bold' : 'normal',
-                fontStyle: state.style !== 'bold' ? state.style : 'normal',
-                height: '4rem',
-                overflow: 'hidden',
-                whiteSpace: 'nowrap'
-              }
-            })
+        h(BoxContainer, {padding: false}, [
+          h(Box, {orientation: 'vertical'}, [
+            h(BoxContainer, {shrink: 1}, h(Input, {
+              type: 'select',
+              value: state.size,
+              choices: fontSizes,
+              onchange: v => actions.setSize(v)
+            })),
+            h(BoxContainer, {grow: 1}, h(Input, {
+              type: 'select',
+              value: state.font,
+              choices: fontNames,
+              onchange: v => actions.setFont(v)
+            })),
+            h(BoxContainer, {shrink: 1}, h(Input, {
+              type: 'select',
+              value: state.size,
+              choices: fontStyles,
+              onchange: v => actions.setStyle(v)
+            }))
           ])
+        ]),
+        h(BoxContainer, {grow: 0, shrink: 1}, [
+          h(Input, {
+            fill: true,
+            type: 'textarea',
+            value: this.args.text,
+            inputStyle: {
+              fontFamily: state.name,
+              fontSize: `${state.size}${this.args.unit}`,
+              fontWeight: state.style === 'bold' ? 'bold' : 'normal',
+              fontStyle: state.style !== 'bold' ? state.style : 'normal',
+              height: '4rem',
+              overflow: 'hidden',
+              whiteSpace: 'nowrap'
+            }
+          })
         ])
       ]), $content);
     });

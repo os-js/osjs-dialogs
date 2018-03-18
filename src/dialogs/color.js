@@ -194,31 +194,29 @@ export default class ColorDialog extends Dialog {
         ]);
 
       const a = app(initialState, initialActions, (state, actions) => this.createView([
-        h(Box, {orientation: 'vertical', grow: 1}, [
-          h(BoxContainer, {shrink: 1}, [
-            h(Box, {}, [
-              h(BoxContainer, {padding: false}, [
-                h('div', {
-                  class: 'osjs-gui-border',
-                  style: {display: 'inline-block'},
-                  oncreate: el => el.appendChild(canvas)
-                })
-              ]),
-              h(BoxContainer, {padding: false}, [
-                h(Input, {
-                  type: 'text',
-                  value: state.hex,
-                  style: {width: '100px', color: state.hex}
-                })
-              ])
+        h(BoxContainer, {shrink: 1}, [
+          h(Box, {}, [
+            h(BoxContainer, {padding: false}, [
+              h('div', {
+                class: 'osjs-gui-border',
+                style: {display: 'inline-block'},
+                oncreate: el => el.appendChild(canvas)
+              })
+            ]),
+            h(BoxContainer, {padding: false}, [
+              h(Input, {
+                type: 'text',
+                value: state.hex,
+                style: {width: '100px', color: state.hex}
+              })
             ])
-          ]),
-          h(BoxContainer, {grow: 1, padding: false}, [
-            h(Box, {}, [
-              rangeContainer('r', state.r, actions),
-              rangeContainer('g', state.g, actions),
-              rangeContainer('b', state.b, actions)
-            ])
+          ])
+        ]),
+        h(BoxContainer, {grow: 1, padding: false}, [
+          h(Box, {}, [
+            rangeContainer('r', state.r, actions),
+            rangeContainer('g', state.g, actions),
+            rangeContainer('b', state.b, actions)
           ])
         ])
       ]), $content);

@@ -140,17 +140,15 @@ export default class FileDialog extends Dialog {
 
         listview: adapters.listview.actions()
       }, (state, actions) => this.createView([
-        h(Box, {class: 'osjs-gui-absolute-fill'}, [
-          h(BoxContainer, {}, [
-            h(Input, {type: 'select', choices: {a: 'Filesystem A', b: 'Filesystem B'}})
-          ]),
-          h(BoxContainer, {grow: 1}, [
-            h(ListView, adapters.listview.proxy(state.listview, actions.listview))
-          ]),
-          h(BoxContainer, {style: {display: this.args.type === 'save' ? null : 'none'}}, [
-            h(Input, {type: 'text', placeholder: 'Filename', value: state.filename})
-          ]),
-        ])
+        h(BoxContainer, {}, [
+          h(Input, {type: 'select', choices: {a: 'Filesystem A', b: 'Filesystem B'}})
+        ]),
+        h(BoxContainer, {grow: 1}, [
+          h(ListView, adapters.listview.proxy(state.listview, actions.listview))
+        ]),
+        h(BoxContainer, {style: {display: this.args.type === 'save' ? null : 'none'}}, [
+          h(Input, {type: 'text', placeholder: 'Filename', value: state.filename})
+        ]),
       ]), $content);
 
       a.setPath(this.args.path);
