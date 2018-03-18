@@ -154,12 +154,12 @@ export default class Dialog {
     };
 
     this.win.on('dialog:button', (name, ev) => {
-      callback(name, this.value, ev);
+      callback(name, this.getValue(), ev);
       this.destroy();
     });
 
     this.win.on('destroy', () => {
-      callback('destroy', this.value, null);
+      callback('destroy', this.getValue(), null);
     });
 
     this.win.on('render', () => {

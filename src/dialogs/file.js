@@ -30,7 +30,6 @@
 
 import {h, app} from 'hyperapp';
 import {
-  Box,
   BoxContainer,
   Input,
   ListView,
@@ -82,7 +81,7 @@ export default class FileDialog extends Dialog {
   render() {
     super.render(($content) => {
       const a = app({
-        filename: this.filename,
+        filename: this.args.filename,
         listview: adapters.listview.state({
           onselect: (item) => {
             a.setFilename(item.isFile ? item.filename : null);
@@ -121,17 +120,17 @@ export default class FileDialog extends Dialog {
           }
 
           const files = await this.core.make('osjs/vfs')
-          .readdir(path, {
-            filter: (item) => {
-              if (this.args.mime) {
-                return item.mime
-                  ? this.args.mime.some(test => (new RegExp(test)).test(item.mime))
-                  : true;
-              }
+            .readdir(path, {
+              filter: (item) => {
+                if (this.args.mime) {
+                  return item.mime
+                    ? this.args.mime.some(test => (new RegExp(test)).test(item.mime))
+                    : true;
+                }
 
-              return true;
-            }
-          });
+                return true;
+              }
+            });
 
           actions._readdir({path, files});
         },
@@ -153,6 +152,21 @@ export default class FileDialog extends Dialog {
 
       a.setPath(this.args.path);
     });
+  }
+
+  getValue() {
+    if (this.args.type === 'save') {
+      const filename = this.win.$content.querySelector('input[type=text]')
+        .value;
+
+      const path = this.args.path.replace(/\/?$/, '/') + filename;
+
+      return filename
+        ? {path, filename}
+        : undefined;
+    }
+
+    return super.getValue();
   }
 
 }
