@@ -62,6 +62,8 @@ export default class PromptDialog extends Dialog {
         }
       }
     }, callback);
+
+    this.value = this.args.value;
   }
 
   render() {
