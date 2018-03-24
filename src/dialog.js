@@ -43,10 +43,10 @@ let dialogCount = 0;
  * Default button attributes
  */
 const defaultButtons = {
-  ok: {label: 'Ok'},
+  ok: {label: 'Ok', positive: true},
   close: {label: 'Close'},
   cancel: {label: 'Cancel'},
-  yes: {label: 'Yes'},
+  yes: {label: 'Yes', positive: true},
   no: {label: 'No'}
 };
 
@@ -205,6 +205,15 @@ export default class Dialog {
     console.debug('Callback in dialog', arguments);
 
     this.callback(name, this.getValue(), ev);
+  }
+
+  /**
+   * Gets the first positive button
+   * @return {String|undefined}
+   */
+  getPositiveButton() {
+    const found = this.buttons.find(b => b.positive === true);
+    return found ? found.name : null;
   }
 
   /**
