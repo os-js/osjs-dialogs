@@ -116,6 +116,8 @@ export default class Dialog {
       parent: args.parent
     }, this.options.window));
     this.value = undefined;
+    this.calledBack = false;
+
     this.buttons = this.options.buttons.map(n =>
       typeof n === 'string'
         ? defaultButton(n)
@@ -141,25 +143,13 @@ export default class Dialog {
    * @param {Function} cb Callback from window
    */
   render(cb) {
-    let called;
-    const callback = (...args) => {
-      if (called) {
-        return;
-      }
-      called = true;
-
-      console.debug('Callback in dialog', args);
-
-      this.callback(...args);
-    };
-
     this.win.on('dialog:button', (name, ev) => {
-      callback(name, this.getValue(), ev);
+      this.emitCallback(name, ev);
       this.destroy();
     });
 
     this.win.on('destroy', () => {
-      callback('destroy', this.getValue(), null);
+      this.emitCallback('destroy');
     });
 
     this.win.on('render', () => {
@@ -199,6 +189,22 @@ export default class Dialog {
     return this.buttons.map(b => h(Button, Object.assign({}, {
       onclick: ev => onclick(b.name, ev)
     }, b)));
+  }
+
+  /**
+   * Emits the callback
+   * @param {String} name Button or action name
+   * @param {Event} [ev] Browser event reference
+   */
+  emitCallback(name, ev) {
+    if (this.calledBack) {
+      return;
+    }
+    this.calledBack = true;
+
+    console.debug('Callback in dialog', arguments);
+
+    this.callback(name, this.getValue(), ev);
   }
 
   /**
