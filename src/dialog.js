@@ -144,8 +144,7 @@ export default class Dialog {
    */
   render(cb) {
     this.win.on('dialog:button', (name, ev) => {
-      this.emitCallback(name, ev);
-      this.destroy();
+      this.emitCallback(name, ev, true);
     });
 
     this.win.on('destroy', () => {
@@ -195,8 +194,9 @@ export default class Dialog {
    * Emits the callback
    * @param {String} name Button or action name
    * @param {Event} [ev] Browser event reference
+   * @param {Boolean} [close=false] Close dialog
    */
-  emitCallback(name, ev) {
+  emitCallback(name, ev, close = false) {
     if (this.calledBack) {
       return;
     }
@@ -205,6 +205,10 @@ export default class Dialog {
     console.debug('Callback in dialog', arguments);
 
     this.callback(name, this.getValue(), ev);
+
+    if (close) {
+      this.destroy();
+    }
   }
 
   /**
