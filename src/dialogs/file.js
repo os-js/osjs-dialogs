@@ -87,10 +87,13 @@ export default class FileDialog extends Dialog {
             a.setFilename(item.isFile ? item.filename : null);
             this.value = item.isFile ? item : null;
           },
-          onactivate: (item) => {
+          onactivate: (item, ev) => {
             if (item.isDirectory) {
               a.setFilename(null);
               a.setPath(item.path);
+            } else {
+              this.value = item.isFile ? item : null;
+              this.emitCallback(this.getPositiveButton(), ev, true);
             }
           },
           class: 'osjs-gui-absolute-fill',
