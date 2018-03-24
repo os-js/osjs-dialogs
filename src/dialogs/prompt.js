@@ -46,7 +46,10 @@ export default class PromptDialog extends Dialog {
    * @param {Function} callback The callback function
    */
   constructor(core, args, callback) {
-    super(core, args, {
+    super(core, Object.assign({}, {
+      value: '',
+      placeholder: '',
+    }, args), {
       className: 'prompt',
       buttons: ['ok', 'cancel'],
       window: {
@@ -66,7 +69,7 @@ export default class PromptDialog extends Dialog {
       app({}, {}, (state, actions) => this.createView([
         h(BoxContainer, {grow: 1}, [
           h('div', {class: 'osjs-dialog-message'}, String(this.args.message)),
-          h(Input, {type: 'text', oninput: (value) => {
+          h(Input, {type: 'text', value: this.args.value, placeholder: this.args.placeholder, oninput: (value) => {
             this.value = value;
           }})
         ])
