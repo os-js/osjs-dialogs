@@ -146,7 +146,12 @@ export default class FileDialog extends Dialog {
           h(ListView, adapters.listview.proxy(state.listview, actions.listview))
         ]),
         h(BoxContainer, {style: {display: this.args.type === 'save' ? null : 'none'}}, [
-          h(Input, {type: 'text', placeholder: 'Filename', value: state.filename})
+          h(Input, {
+            type: 'text',
+            placeholder: 'Filename',
+            value: state.filename,
+            onenter: (value, ev) => this.emitCallback(this.getPositiveButton(), ev, true)
+          })
         ]),
       ]), $content);
 
