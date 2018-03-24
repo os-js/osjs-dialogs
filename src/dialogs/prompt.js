@@ -75,7 +75,7 @@ export default class PromptDialog extends Dialog {
             type: 'text',
             value: this.args.value,
             placeholder: this.args.placeholder,
-            onenter: (value, ev) => this.emitCallback(this.getPositiveButton(), ev),
+            onenter: (value, ev) => this.emitCallback(this.getPositiveButton(), ev, true),
             oninput: (value) => {
               this.value = value;
             }
