@@ -38,9 +38,9 @@ import FileDialog from './dialogs/file';
 
 export default class DialogServiceProvider {
 
-  constructor(core) {
+  constructor(core, args = {}) {
     this.core = core;
-    this.dialogs = {
+    this.registry = Object.assign({
       alert: AlertDialog,
       confirm: ConfirmDialog,
       prompt: PromptDialog,
@@ -48,7 +48,7 @@ export default class DialogServiceProvider {
       color: ColorDialog,
       font: FontDialog,
       file: FileDialog
-    };
+    }, args.registry || {});
   }
 
   destroy() {
@@ -56,7 +56,7 @@ export default class DialogServiceProvider {
 
   async init() {
     this.core.instance('osjs/dialog', (name, args = {}, callback = function() {}) => {
-      if (!this.dialogs[name]) {
+      if (!this.registry[name]) {
         throw new Error(`Dialog '${name}' does not exist`);
       }
 
@@ -64,10 +64,20 @@ export default class DialogServiceProvider {
         throw new Error(`Dialog requires a callback`);
       }
 
-      const instance = new this.dialogs[name](this.core, args, callback);
+      const instance = new this.registry[name](this.core, args, callback);
       instance.render();
       return instance;
     });
+
+    this.core.singleton('osjs/dialogs', () => ({
+      register: (name, classRef) => {
+        if (this.registry[name]) {
+          console.warn('Overwriting previously registered dialog', name);
+        }
+
+        this.registry[name] = classRef;
+      }
+    }));
   }
 
   start() {
