@@ -80,6 +80,7 @@ const createOptions = (options, args) =>
         resizable: false,
         maximizable: false,
         minimizable: false,
+        sessionable: false,
         classNames: [
           'osjs-dialog',
           `osjs-${options.className || 'unknown'}-dialog`
