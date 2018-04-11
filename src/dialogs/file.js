@@ -35,7 +35,14 @@ import {
   ListView,
   adapters
 } from '@osjs/gui';
+
 import Dialog from '../dialog';
+
+const getMountpoints = core => core.make('osjs/fs')
+  .mountpoints(true)
+  .reduce((mounts, iter) => Object.assign(mounts, {
+    [iter.name]: iter.label
+  }), {});
 
 /**
  * Default OS.js File Dialog
@@ -143,7 +150,14 @@ export default class FileDialog extends Dialog {
         listview: adapters.listview.actions()
       }, (state, actions) => this.createView([
         h(BoxContainer, {}, [
-          h(Input, {type: 'select', choices: {a: 'Filesystem A', b: 'Filesystem B'}})
+          h(Input, {
+            type: 'select',
+            choices: getMountpoints(this.core),
+            onchange: val => {
+              // TODO
+              a.setPath('/');
+            }
+          })
         ]),
         h(BoxContainer, {grow: 1}, [
           h(ListView, adapters.listview.proxy(state.listview, actions.listview))
