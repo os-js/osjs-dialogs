@@ -60,10 +60,14 @@ export default class FileDialog extends Dialog {
     args = Object.assign({}, {
       title: null,
       type: 'open',
-      path: '/',
+      path: null,
       filename: null,
       mime: []
     }, args);
+
+    if (!args.path) {
+      args.path = core.config('vfs.defaultPath');
+    }
 
     const title = args.title
       ? args.title
@@ -124,7 +128,7 @@ export default class FileDialog extends Dialog {
           return {path, listview};
         },
 
-        setPath: (path = '/') => async (state, actions) => {
+        setPath: path => async (state, actions) => {
           if (typeof path !== 'string') {
             path = path.path;
           }
@@ -153,10 +157,7 @@ export default class FileDialog extends Dialog {
           h(Input, {
             type: 'select',
             choices: getMountpoints(this.core),
-            onchange: val => {
-              // TODO
-              a.setPath('/');
-            }
+            onchange: val => a.setPath(val + ':/')
           })
         ]),
         h(BoxContainer, {grow: 1}, [
