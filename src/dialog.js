@@ -154,6 +154,13 @@ export default class Dialog {
 
     this.win.on('render', () => {
       this.win.resizeFit();
+      this.win.focus();
+
+      const focusButton = this.getNegativeButton();
+      const btn = focusButton ? this.win.$content.querySelector(`button[name=${focusButton}]`) : null;
+      if (btn) {
+        btn.focus();
+      }
     });
 
     this.win.init();
@@ -218,6 +225,15 @@ export default class Dialog {
    */
   getPositiveButton() {
     const found = this.buttons.find(b => b.positive === true);
+    return found ? found.name : null;
+  }
+
+  /**
+   * Gets the first negative button
+   * @return {String|undefined}
+   */
+  getNegativeButton() {
+    const found = this.buttons.find(b => !b.positive);
     return found ? found.name : null;
   }
 
