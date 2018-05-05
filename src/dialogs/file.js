@@ -157,7 +157,8 @@ export default class FileDialog extends Dialog {
           h(Input, {
             type: 'select',
             choices: getMountpoints(this.core),
-            onchange: val => a.setPath(val + ':/')
+            onchange: val => a.setPath(val + ':/'),
+            value: this.args.path.split(':')[0]
           })
         ]),
         h(BoxContainer, {grow: 1}, [
