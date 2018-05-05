@@ -90,6 +90,8 @@ export default class FileDialog extends Dialog {
   }
 
   render() {
+    const getFileIcon = file => this.core.make('osjs/fs').icon(file);
+
     super.render(($content) => {
       const a = app({
         filename: this.args.filename,
@@ -121,7 +123,10 @@ export default class FileDialog extends Dialog {
           const listview = state.listview;
           listview.selectedIndex = -1;
           listview.rows = files.map(file => ({
-            columns: [{label: file.filename}, file.mime, file.humanSize],
+            columns: [{
+              label: file.filename,
+              icon: getFileIcon(file)
+            }, file.mime, file.humanSize],
             data: file
           }));
 
