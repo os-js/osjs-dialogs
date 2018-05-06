@@ -1,5 +1,10 @@
 # Changelog for osjs-dialog
 
+## 3.0.0-alpha.12
+
+* Added npmignore
+* Added CHANGELOG
+
 ## 3.0.0-alpha.11
 
 * Focus first negative button on render
