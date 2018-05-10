@@ -1,5 +1,9 @@
 # Changelog for osjs-dialog
 
+## 3.0.0-alpha.13
+
+* Fixed prompt dialog render order issue
+
 ## 3.0.0-alpha.12
 
 * Added npmignore
