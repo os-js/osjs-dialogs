@@ -69,7 +69,7 @@ export default class PromptDialog extends Dialog {
   render() {
     super.render(($content) => {
       app({}, {}, (state, actions) => this.createView([
-        h(BoxContainer, {grow: 1}, [
+        h(BoxContainer, {grow: 1, orientation: 'horizontal'}, [
           h('div', {class: 'osjs-dialog-message'}, String(this.args.message)),
           h(Input, {
             type: 'text',
