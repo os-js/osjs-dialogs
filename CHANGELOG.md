@@ -1,5 +1,10 @@
 # Changelog for osjs-dialog
 
+## 3.0.0-alpha.14
+
+* Updated file dialog
+* Support custom window options and modal
+
 ## 3.0.0-alpha.13
 
 * Fixed prompt dialog render order issue
