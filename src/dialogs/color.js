@@ -157,8 +157,8 @@ export default class ColorDialog extends Dialog {
     }
   }
 
-  render() {
-    super.render(($content) => {
+  render(options) {
+    super.render(options, ($content) => {
       const canvas = createPalette(98, 98);
       const initialState = Object.assign({}, this.value);
       const initialActions = {

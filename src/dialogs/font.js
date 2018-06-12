@@ -88,7 +88,7 @@ export default class FontDialog extends Dialog {
     };
   }
 
-  render() {
+  render(options) {
     const fontSizes = Array(this.args.maxSize - this.args.minSize)
       .fill(0)
       .map((v, i) => this.args.minSize + i)
@@ -119,7 +119,7 @@ export default class FontDialog extends Dialog {
       }
     };
 
-    super.render(($content) => {
+    super.render(options, ($content) => {
       app(initialState, initialActions, (state, actions) => this.createView([
         h(BoxContainer, {padding: false}, [
           h(Box, {orientation: 'vertical'}, [

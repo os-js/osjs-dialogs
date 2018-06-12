@@ -89,10 +89,10 @@ export default class FileDialog extends Dialog {
     }, callback);
   }
 
-  render() {
+  render(options) {
     const getFileIcon = file => this.core.make('osjs/fs').icon(file);
 
-    super.render(($content) => {
+    super.render(options, ($content) => {
       const a = app({
         filename: this.args.filename,
         listview: adapters.listview.state({

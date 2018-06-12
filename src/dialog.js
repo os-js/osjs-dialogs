@@ -30,6 +30,7 @@
 
 import {h} from 'hyperapp';
 import merge from 'deepmerge';
+import plain from 'is-plain-object';
 import {
   Box,
   BoxContainer,
@@ -113,9 +114,7 @@ export default class Dialog {
     this.args = args;
     this.callback = callback || function() {};
     this.options = createOptions(options, args);
-    this.win = core.make('osjs/window', Object.assign({}, {
-      parent: args.parent
-    }, this.options.window));
+    this.win = null;
     this.value = undefined;
     this.calledBack = false;
 
@@ -143,7 +142,13 @@ export default class Dialog {
    * Renders the dialog
    * @param {Function} cb Callback from window
    */
-  render(cb) {
+  render(options, cb) {
+    const opts = merge(this.options.window || {}, options, {
+      isMergeableObject: plain
+    });
+
+    this.win = this.core.make('osjs/window', opts);
+
     this.win.on('dialog:button', (name, ev) => {
       this.emitCallback(name, ev, true);
     });

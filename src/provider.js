@@ -55,7 +55,10 @@ export default class DialogServiceProvider {
   }
 
   async init() {
-    this.core.instance('osjs/dialog', (name, args = {}, callback = function() {}) => {
+    this.core.instance('osjs/dialog', (name, args = {}, ...eargs) => {
+      const options = eargs.length > 1 ? eargs[0] : {};
+      const callback = eargs[eargs.length > 1 ? 1 : 0];
+
       if (!this.registry[name]) {
         throw new Error(`Dialog '${name}' does not exist`);
       }
@@ -65,7 +68,7 @@ export default class DialogServiceProvider {
       }
 
       const instance = new this.registry[name](this.core, args, callback);
-      instance.render();
+      instance.render(options);
       return instance;
     });
 

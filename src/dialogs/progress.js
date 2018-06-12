@@ -67,8 +67,8 @@ export default class ProgressDialog extends Dialog {
     this.app = null;
   }
 
-  render() {
-    super.render(($content) => {
+  render(options) {
+    super.render(options, ($content) => {
       this.app = app({
         progress: this.value,
         status: this.status

@@ -65,8 +65,8 @@ export default class AlertDialog extends Dialog {
     }, callback);
   }
 
-  render() {
-    super.render(($content) => {
+  render(options) {
+    super.render(options, ($content) => {
       app({}, {}, (state, actions) => this.createView([
         h(BoxContainer, {}, [
           h('div', {class: 'osjs-dialog-message'}, String(this.args.message))
