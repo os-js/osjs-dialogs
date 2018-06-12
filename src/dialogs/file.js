@@ -29,14 +29,12 @@
  */
 
 import {h, app} from 'hyperapp';
+import Dialog from '../dialog';
 import {
   BoxContainer,
   Input,
-  ListView,
-  adapters
+  listView
 } from '@osjs/gui';
-
-import Dialog from '../dialog';
 
 const getMountpoints = core => core.make('osjs/fs')
   .mountpoints(true)
@@ -94,21 +92,9 @@ export default class FileDialog extends Dialog {
 
     super.render(options, ($content) => {
       const a = app({
+        mount: this.args.path ? this.args.path.split(':')[0] : null,
         filename: this.args.filename,
-        listview: adapters.listview.state({
-          onselect: (item) => {
-            a.setFilename(item.isFile ? item.filename : null);
-            this.value = item.isFile ? item : null;
-          },
-          onactivate: (item, ev) => {
-            if (item.isDirectory) {
-              a.setFilename(null);
-              a.setPath(item.path);
-            } else {
-              this.value = item.isFile ? item : null;
-              this.emitCallback(this.getPositiveButton(), ev, true);
-            }
-          },
+        listview: listView.state({
           class: 'osjs-gui-absolute-fill',
           columns: [{
             label: 'Name'
@@ -131,6 +117,12 @@ export default class FileDialog extends Dialog {
           }));
 
           return {path, listview};
+        },
+
+        setMountpoint: mount => (state, actions) => {
+          actions.setPath(mount + ':/');
+
+          return {mount};
         },
 
         setPath: path => async (state, actions) => {
@@ -156,18 +148,32 @@ export default class FileDialog extends Dialog {
 
         setFilename: filename => state => ({filename}),
 
-        listview: adapters.listview.actions()
+        listview: listView.actions({
+          select: ({data}) => {
+            a.setFilename(data.isFile ? data.filename : null);
+            this.value = data.isFile ? data : null;
+          },
+          activate: ({data, ev}) => {
+            if (data.isDirectory) {
+              a.setFilename(null);
+              a.setPath(data.path);
+            } else {
+              this.value = data.isFile ? data : null;
+              this.emitCallback(this.getPositiveButton(), ev, true);
+            }
+          },
+        })
       }, (state, actions) => this.createView([
         h(BoxContainer, {}, [
           h(Input, {
             type: 'select',
             choices: getMountpoints(this.core),
-            onchange: val => a.setPath(val + ':/'),
-            value: this.args.path.split(':')[0]
+            onchange: val => a.setMountpoint(val),
+            value: state.mount
           })
         ]),
         h(BoxContainer, {grow: 1}, [
-          h(ListView, adapters.listview.proxy(state.listview, actions.listview))
+          h(listView.component(state.listview, actions.listview))
         ]),
         h(BoxContainer, {style: {display: this.args.type === 'save' ? null : 'none'}}, [
           h(Input, {
