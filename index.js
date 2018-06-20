@@ -35,6 +35,7 @@ import PromptDialog from './src/dialogs/prompt';
 import ProgressDialog from './src/dialogs/progress';
 import ColorDialog from './src/dialogs/color';
 import FileDialog from './src/dialogs/file';
+import ChoiceDialog from './src/dialogs/choice';
 
 export {
   AlertDialog,
@@ -43,5 +44,6 @@ export {
   ProgressDialog,
   ColorDialog,
   FileDialog,
+  ChoiceDialog,
   DialogServiceProvider
 };

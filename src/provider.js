@@ -35,6 +35,7 @@ import ProgressDialog from './dialogs/progress';
 import ColorDialog from './dialogs/color';
 import FontDialog from './dialogs/font';
 import FileDialog from './dialogs/file';
+import ChoiceDialog from './dialogs/choice';
 
 export default class DialogServiceProvider {
 
@@ -47,7 +48,8 @@ export default class DialogServiceProvider {
       progress: ProgressDialog,
       color: ColorDialog,
       font: FontDialog,
-      file: FileDialog
+      file: FileDialog,
+      choice: ChoiceDialog
     }, args.registry || {});
   }
 
