@@ -1,5 +1,9 @@
 # Changelog for osjs-dialog
 
+## 3.0.0-alpha.15
+
+* Added 'choice' dialog
+
 ## 3.0.0-alpha.14
 
 * Updated file dialog
