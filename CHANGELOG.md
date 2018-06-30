@@ -1,5 +1,9 @@
 # Changelog for osjs-dialog
 
+## 3.0.0-alpha.17
+
+* Updated some default styles
+
 ## 3.0.0-alpha.16
 
 * Updated to @osjs/gui-alpha.14
