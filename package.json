@@ -17,7 +17,7 @@
   "author": "Anders Evenrud <andersevenrud@gmail.com>",
   "license": "BSD-2-Clause",
   "dependencies": {
-    "@osjs/gui": "^3.0.0-alpha.14",
+    "@osjs/gui": "^3.0.0-alpha.15",
     "deepmerge": "^2.1.0",
     "hyperapp": "^1.1.2",
     "is-plain-object": "^2.0.4"
