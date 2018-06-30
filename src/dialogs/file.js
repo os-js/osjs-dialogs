@@ -89,10 +89,11 @@ export default class FileDialog extends Dialog {
 
   render(options) {
     const getFileIcon = file => this.core.make('osjs/fs').icon(file);
+    const startingPath = this.args.path ? this.args.path : null;
 
     super.render(options, ($content) => {
       const a = app({
-        mount: this.args.path ? this.args.path.split(':')[0] : null,
+        mount: startingPath ? startingPath.split(':')[0] : null,
         filename: this.args.filename,
         listview: listView.state({
           columns: [{
@@ -142,6 +143,8 @@ export default class FileDialog extends Dialog {
               }
             });
 
+          this.args.path = path;
+
           actions._readdir({path, files});
         },
 
@@ -181,7 +184,7 @@ export default class FileDialog extends Dialog {
         })
       ]), $content);
 
-      a.setPath(this.args.path);
+      a.setPath(startingPath);
     });
   }
 
