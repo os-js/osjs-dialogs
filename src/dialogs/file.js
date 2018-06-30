@@ -31,8 +31,8 @@
 import {h, app} from 'hyperapp';
 import Dialog from '../dialog';
 import {
-  BoxContainer,
-  Input,
+  TextField,
+  SelectField,
   listView
 } from '@osjs/gui';
 
@@ -95,7 +95,6 @@ export default class FileDialog extends Dialog {
         mount: this.args.path ? this.args.path.split(':')[0] : null,
         filename: this.args.filename,
         listview: listView.state({
-          class: 'osjs-gui-absolute-fill',
           columns: [{
             label: 'Name'
           }, {
@@ -164,25 +163,20 @@ export default class FileDialog extends Dialog {
           },
         })
       }, (state, actions) => this.createView([
-        h(BoxContainer, {}, [
-          h(Input, {
-            type: 'select',
-            choices: getMountpoints(this.core),
-            onchange: val => a.setMountpoint(val),
-            value: state.mount
-          })
-        ]),
-        h(BoxContainer, {grow: 1}, [
-          h(listView.component(state.listview, actions.listview))
-        ]),
-        h(BoxContainer, {style: {display: this.args.type === 'save' ? null : 'none'}}, [
-          h(Input, {
-            type: 'text',
-            placeholder: 'Filename',
-            value: state.filename,
-            onenter: (value, ev) => this.emitCallback(this.getPositiveButton(), ev, true)
-          })
-        ]),
+        h(SelectField, {
+          choices: getMountpoints(this.core),
+          onchange: (ev, val) => a.setMountpoint(val),
+          value: state.mount
+        }),
+        h(listView.component(Object.assign({
+          box: {grow: 1}
+        }, state.listview), actions.listview)),
+        h(TextField, {
+          placeholder: 'Filename',
+          value: state.filename,
+          onenter: (ev, value) => this.emitCallback(this.getPositiveButton(), ev, true),
+          style: {display: this.args.type === 'save' ? null : 'none'}
+        })
       ]), $content);
 
       a.setPath(this.args.path);

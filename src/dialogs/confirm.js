@@ -30,7 +30,7 @@
 
 import {h, app} from 'hyperapp';
 import Dialog from '../dialog';
-import {BoxContainer} from '@osjs/gui';
+import {Box} from '@osjs/gui';
 
 /**
  * Default OS.js Confirm Dialog
@@ -66,7 +66,7 @@ export default class ConfirmDialog extends Dialog {
   render(options) {
     super.render(options, ($content) => {
       app({}, {}, (state, actions) => this.createView([
-        h(BoxContainer, {grow: 1}, [
+        h(Box, {grow: 1}, [
           h('div', {class: 'osjs-dialog-message'}, String(this.args.message))
         ])
       ]), $content);

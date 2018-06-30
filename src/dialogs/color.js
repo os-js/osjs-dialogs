@@ -32,8 +32,8 @@ import {h, app} from 'hyperapp';
 import Dialog from '../dialog';
 import {
   Box,
-  BoxContainer,
-  Input
+  TextField,
+  RangeField
 } from '@osjs/gui';
 
 /*
@@ -175,45 +175,40 @@ export default class ColorDialog extends Dialog {
       };
 
       const rangeContainer = (c, v, actions) =>
-        h(BoxContainer, {padding: false, grow: 1}, [
-          h(Box, {orientation: 'vertical', align: 'center'}, [
-            h(BoxContainer, {shrink: 1}, h('div', {}, c.toUpperCase())),
-            h(BoxContainer, {grow: 1}, h(Input, {
-              type: 'range',
-              min: 0,
-              max: 255,
-              value: String(v),
-              oninput: value => actions.setComponent({color: c, value}),
-              onchange: () => actions.updateHex()
-            })),
-            h(BoxContainer, {shrink: 1, basis: '5em'}, h(Input, {
-              type: 'text',
-              value: String(v)
-            }))
-          ])
+        h(Box, {orientation: 'vertical', align: 'center', padding: false, grow: 1}, [
+          h(Box, {shrink: 1}, h('div', {}, c.toUpperCase())),
+          h(RangeField, {
+            box: {grow: 1},
+            min: 0,
+            max: 255,
+            value: String(v),
+            oninput: (ev, value) => actions.setComponent({color: c, value}),
+            onchange: () => actions.updateHex()
+          }),
+          h(TextField, {
+            box: {shrink: 1, basis: '5em'},
+            value: String(v)
+          })
         ]);
 
       const a = app(initialState, initialActions, (state, actions) => this.createView([
-        h(BoxContainer, {shrink: 1}, [
-          h(Box, {}, [
-            h(BoxContainer, {padding: false}, [
+        h(Box, {orientation: 'vertical'}, [
+          h(Box, {shrink: 1}, [
+            h(Box, {padding: false}, [
               h('div', {
                 class: 'osjs-gui-border',
                 style: {display: 'inline-block'},
                 oncreate: el => el.appendChild(canvas)
               })
             ]),
-            h(BoxContainer, {padding: false}, [
-              h(Input, {
-                type: 'text',
+            h(Box, {padding: false}, [
+              h(TextField, {
                 value: state.hex,
                 style: {width: '100px', color: state.hex}
               })
             ])
-          ])
-        ]),
-        h(BoxContainer, {grow: 1, padding: false}, [
-          h(Box, {}, [
+          ]),
+          h(Box, {grow: 1, padding: false}, [
             rangeContainer('r', state.r, actions),
             rangeContainer('g', state.g, actions),
             rangeContainer('b', state.b, actions)

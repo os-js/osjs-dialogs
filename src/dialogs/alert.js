@@ -29,7 +29,7 @@
  */
 
 import {h, app} from 'hyperapp';
-import {Box, BoxContainer} from '@osjs/gui';
+import {Box} from '@osjs/gui';
 import Dialog from '../dialog';
 
 /**
@@ -68,7 +68,7 @@ export default class AlertDialog extends Dialog {
   render(options) {
     super.render(options, ($content) => {
       app({}, {}, (state, actions) => this.createView([
-        h(BoxContainer, {}, [
+        h(Box, {}, [
           h('div', {class: 'osjs-dialog-message'}, String(this.args.message))
         ])
       ]), $content);

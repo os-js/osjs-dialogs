@@ -29,7 +29,7 @@
  */
 
 import {h, app} from 'hyperapp';
-import {Input, BoxContainer} from '@osjs/gui';
+import {SelectField, Box} from '@osjs/gui';
 import Dialog from '../dialog';
 
 /**
@@ -82,17 +82,15 @@ export default class ChoiceDialog extends Dialog {
           return {current};
         }
       }, (state, actions) => this.createView([
-        h(BoxContainer, {}, [
+        h(Box, {}, [
           h('div', {class: 'osjs-dialog-message'}, String(this.args.message))
         ]),
-        h(BoxContainer, {grow: 1, orientation: 'horizontal'}, [
-          h(Input, {
-            type: 'select',
-            choices: this.args.choices,
-            value: state.current,
-            onchange: val => actions.setCurrent(val)
-          })
-        ]),
+        h(SelectField, {
+          box: {grow: 1},
+          choices: this.args.choices,
+          value: state.current,
+          onchange: (ev, val) => actions.setCurrent(val)
+        })
       ]), $content);
     });
   }

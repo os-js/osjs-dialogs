@@ -30,7 +30,7 @@
 
 import {h, app} from 'hyperapp';
 import Dialog from '../dialog';
-import {BoxContainer, Progressbar} from '@osjs/gui';
+import {Box, Progressbar} from '@osjs/gui';
 
 /**
  * Default OS.js Progress Dialog
@@ -76,7 +76,7 @@ export default class ProgressDialog extends Dialog {
         setProgress: progress => state => ({progress}),
         setStatus: status => state => ({status})
       }, (state, actions) => this.createView([
-        h(BoxContainer, {grow: 1}, [
+        h(Box, {grow: 1, shrink: 1}, [
           h('div', {class: 'osjs-dialog-message'}, String(this.args.message)),
           h('div', {class: 'osjs-dialog-status'}, String(state.status)),
           h(Progressbar, {value: state.progress})

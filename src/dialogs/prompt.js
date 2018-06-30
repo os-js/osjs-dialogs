@@ -30,7 +30,7 @@
 
 import {h, app} from 'hyperapp';
 import Dialog from '../dialog';
-import {BoxContainer, Input} from '@osjs/gui';
+import {Box, TextField} from '@osjs/gui';
 
 /**
  * Default OS.js Prompt Dialog
@@ -69,16 +69,13 @@ export default class PromptDialog extends Dialog {
   render(options) {
     super.render(options, ($content) => {
       app({}, {}, (state, actions) => this.createView([
-        h(BoxContainer, {grow: 1, orientation: 'horizontal'}, [
-          h('div', {class: 'osjs-dialog-message'}, String(this.args.message)),
-          h(Input, {
-            type: 'text',
+        h(Box, {grow: 1, padding: false}, [
+          h(Box, {class: 'osjs-dialog-message'}, String(this.args.message)),
+          h(TextField, {
             value: this.args.value,
             placeholder: this.args.placeholder,
-            onenter: (value, ev) => this.emitCallback(this.getPositiveButton(), ev, true),
-            oninput: (value) => {
-              this.value = value;
-            }
+            onenter: (ev, value) => this.emitCallback(this.getPositiveButton(), ev, true),
+            oninput: (ev, value) => (this.value = value)
           })
         ])
       ]), $content);

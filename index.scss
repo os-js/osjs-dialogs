@@ -42,9 +42,7 @@
 }
 
 .osjs-dialog-buttons {
-  & > .osjs-gui-toolbar {
-    justify-content: flex-end;
-  }
+  justify-content: flex-end;
 }
 
 .osjs-dialog-status,
