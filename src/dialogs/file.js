@@ -169,13 +169,15 @@ export default class FileDialog extends Dialog {
           value: state.mount
         }),
         h(listView.component(Object.assign({
-          box: {grow: 1}
+          box: {grow: 1, shrink: 1}
         }, state.listview), actions.listview)),
         h(TextField, {
           placeholder: 'Filename',
           value: state.filename,
           onenter: (ev, value) => this.emitCallback(this.getPositiveButton(), ev, true),
-          style: {display: this.args.type === 'save' ? null : 'none'}
+          box: {
+            style: {display: this.args.type === 'save' ? null : 'none'}
+          }
         })
       ]), $content);
 
