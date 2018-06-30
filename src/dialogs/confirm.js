@@ -57,7 +57,12 @@ export default class ConfirmDialog extends Dialog {
     super(core, args, {
       className: 'confirm',
       window: {
-        title: args.title || 'Confirm'
+        title: args.title || 'Confirm',
+        attributes: {
+          minDimension: {
+            height: 140
+          }
+        }
       },
       buttons
     }, callback);

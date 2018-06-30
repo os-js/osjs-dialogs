@@ -58,7 +58,10 @@ export default class AlertDialog extends Dialog {
       window: {
         title: args.title,
         attributes: {
-          ontop: args.type === 'error'
+          ontop: args.type === 'error',
+          minDimension: {
+            height: 200
+          }
         }
       },
       buttons: ['close']
@@ -68,7 +71,7 @@ export default class AlertDialog extends Dialog {
   render(options) {
     super.render(options, ($content) => {
       app({}, {}, (state, actions) => this.createView([
-        h(Box, {}, [
+        h(Box, {grow: 1}, [
           h('div', {class: 'osjs-dialog-message'}, String(this.args.message))
         ])
       ]), $content);
