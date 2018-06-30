@@ -1,5 +1,9 @@
 # Changelog for osjs-dialog
 
+## 3.0.0-alpha.16
+
+* Updated to @osjs/gui-alpha.14
+
 ## 3.0.0-alpha.15
 
 * Added 'choice' dialog
