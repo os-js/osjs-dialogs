@@ -32,6 +32,7 @@ import {h, app} from 'hyperapp';
 import Dialog from '../dialog';
 import {
   Box,
+  BoxContainer,
   TextField,
   RangeField
 } from '@osjs/gui';
@@ -133,7 +134,7 @@ export default class ColorDialog extends Dialog {
         attributes: {
           minDimension: {
             width: 500,
-            height: 200
+            height: 260
           }
         }
       }
@@ -175,7 +176,7 @@ export default class ColorDialog extends Dialog {
       };
 
       const rangeContainer = (c, v, actions) =>
-        h(Box, {orientation: 'vertical', align: 'center', padding: false, grow: 1}, [
+        h(Box, {orientation: 'vertical', align: 'center', padding: false}, [
           h(Box, {shrink: 1}, h('div', {}, c.toUpperCase())),
           h(RangeField, {
             box: {grow: 1},
@@ -192,23 +193,19 @@ export default class ColorDialog extends Dialog {
         ]);
 
       const a = app(initialState, initialActions, (state, actions) => this.createView([
-        h(Box, {orientation: 'vertical'}, [
-          h(Box, {shrink: 1}, [
-            h(Box, {padding: false}, [
-              h('div', {
-                class: 'osjs-gui-border',
-                style: {display: 'inline-block'},
-                oncreate: el => el.appendChild(canvas)
-              })
-            ]),
-            h(Box, {padding: false}, [
-              h(TextField, {
-                value: state.hex,
-                style: {width: '100px', color: state.hex}
-              })
-            ])
+        h(Box, {orientation: 'vertical', grow: 1, shrink: 1}, [
+          h(BoxContainer, {shrink: 1, orientation: 'horizontal'}, [
+            h('div', {
+              class: 'osjs-gui-border',
+              style: {display: 'inline-block'},
+              oncreate: el => el.appendChild(canvas)
+            }),
+            h(TextField, {
+              value: state.hex,
+              style: {width: '100px', color: state.hex}
+            })
           ]),
-          h(Box, {grow: 1, padding: false}, [
+          h(Box, {padding: false}, [
             rangeContainer('r', state.r, actions),
             rangeContainer('g', state.g, actions),
             rangeContainer('b', state.b, actions)
