@@ -158,7 +158,7 @@ export default class Dialog {
     });
 
     this.win.on('render', () => {
-      this.win.resizeFit();
+      //this.win.resizeFit();
       this.win.focus();
 
       const focusButton = this.getNegativeButton();
