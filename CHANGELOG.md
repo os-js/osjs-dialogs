@@ -1,5 +1,9 @@
 # Changelog for osjs-dialog
 
+## 3.0.0-alpha.18
+
+* Removed a resizeFit call
+
 ## 3.0.0-alpha.17
 
 * Updated some default styles
