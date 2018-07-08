@@ -182,13 +182,22 @@ export default class ColorDialog extends Dialog {
             box: {grow: 1},
             min: 0,
             max: 255,
-            value: String(v),
-            oninput: (ev, value) => actions.setComponent({color: c, value}),
-            onchange: () => actions.updateHex()
+            value: v,
+            oncreate: el => (el.value = v),
+            oninput: (ev, value) => {
+              actions.setComponent({color: c, value});
+            },
+            onchange: (ev, value) => {
+              actions.updateHex();
+            }
           }),
           h(TextField, {
             box: {shrink: 1, basis: '5em'},
-            value: String(v)
+            value: String(v),
+            oninput: (ev, value) => {
+              actions.setComponent({color: c, value});
+              actions.updateHex();
+            }
           })
         ]);
 
@@ -217,6 +226,7 @@ export default class ColorDialog extends Dialog {
         const color = colorFromClick(ev, canvas);
         if (color) {
           a.setColor(color);
+          a.updateHex();
         }
       });
     });
