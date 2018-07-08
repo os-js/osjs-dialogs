@@ -1,5 +1,10 @@
 # Changelog for osjs-dialog
 
+## 3.0.0-alpha.19
+
+* Updated default alert dialog dimension
+* Color dialog fixes and updates
+
 ## 3.0.0-alpha.18
 
 * Removed a resizeFit call
