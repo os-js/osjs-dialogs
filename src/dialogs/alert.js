@@ -60,7 +60,8 @@ export default class AlertDialog extends Dialog {
         attributes: {
           ontop: args.type === 'error',
           minDimension: {
-            height: 200
+            width: 400,
+            height: 220
           }
         }
       },
