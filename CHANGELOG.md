@@ -1,5 +1,9 @@
 # Changelog for osjs-dialog
 
+## 3.0.0-alpha.20
+
+* Added 'Custom' dialog
+
 ## 3.0.0-alpha.19
 
 * Updated default alert dialog dimension
