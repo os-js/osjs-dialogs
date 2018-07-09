@@ -92,7 +92,9 @@ const createOptions = (options, args) =>
         },
       }
     }
-  }, options);
+  }, options, {
+    isMergeableObject: plain
+  });
 
 /**
  * OS.js default Dialog implementation

@@ -36,6 +36,7 @@ import ColorDialog from './dialogs/color';
 import FontDialog from './dialogs/font';
 import FileDialog from './dialogs/file';
 import ChoiceDialog from './dialogs/choice';
+import CustomDialog from './dialogs/custom';
 
 export default class DialogServiceProvider {
 
@@ -75,6 +76,10 @@ export default class DialogServiceProvider {
     });
 
     this.core.singleton('osjs/dialogs', () => ({
+      create: (options, valueCallback, callback) => {
+        return new CustomDialog(this.core, options, valueCallback, callback);
+      },
+
       register: (name, classRef) => {
         if (this.registry[name]) {
           console.warn('Overwriting previously registered dialog', name);
