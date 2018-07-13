@@ -1,5 +1,9 @@
 # Changelog for osjs-dialog
 
+## 3.0.0-alpha.22
+
+* Prompt dialog updates
+
 ## 3.0.0-alpha.21
 
 * Updated VFS usage
