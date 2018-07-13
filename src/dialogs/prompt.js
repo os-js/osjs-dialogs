@@ -68,14 +68,25 @@ export default class PromptDialog extends Dialog {
 
   render(options) {
     super.render(options, ($content) => {
-      app({}, {}, (state, actions) => this.createView([
+      app({
+        value: this.args.value
+      }, {
+        setValue: value => state => {
+          this.value = value;
+          return {value};
+        }
+      }, (state, actions) => this.createView([
         h(Box, {grow: 1, padding: false}, [
           h(Box, {class: 'osjs-dialog-message'}, String(this.args.message)),
           h(TextField, {
-            value: this.args.value,
+            value: state.value,
             placeholder: this.args.placeholder,
-            onenter: (ev, value) => this.emitCallback(this.getPositiveButton(), ev, true),
-            oninput: (ev, value) => (this.value = value)
+            onenter: (ev, value) => {
+              actions.setValue(value);
+
+              this.emitCallback(this.getPositiveButton(), ev, true);
+            },
+            oninput: (ev, value) => actions.setValue(value)
           })
         ])
       ]), $content);
