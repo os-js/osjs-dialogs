@@ -67,6 +67,10 @@ export default class FileDialog extends Dialog {
       args.path = core.config('vfs.defaultPath');
     }
 
+    if (typeof args.path === 'string') {
+      args.path = {path: args.path};
+    }
+
     const title = args.title
       ? args.title
       : (args.type === 'open' ? 'Open file' : 'Save file');
@@ -89,11 +93,11 @@ export default class FileDialog extends Dialog {
 
   render(options) {
     const getFileIcon = file => this.core.make('osjs/fs').icon(file);
-    const startingPath = this.args.path ? this.args.path : null;
+    const startingLocation = this.args.path;
 
     super.render(options, ($content) => {
       const a = app({
-        mount: startingPath ? startingPath.split(':')[0] : null,
+        mount: startingLocation ? startingLocation.path.split(':')[0] : null,
         filename: this.args.filename,
         listview: listView.state({
           columns: [{
@@ -120,18 +124,14 @@ export default class FileDialog extends Dialog {
         },
 
         setMountpoint: mount => (state, actions) => {
-          actions.setPath(mount + ':/');
+          actions.setPath({path: mount + ':/'});
 
           return {mount};
         },
 
-        setPath: path => async (state, actions) => {
-          if (typeof path !== 'string') {
-            path = path.path;
-          }
-
+        setPath: file => async (state, actions) => {
           const files = await this.core.make('osjs/vfs')
-            .readdir(path, {
+            .readdir(file, {
               filter: (item) => {
                 if (this.args.mime) {
                   return item.mime
@@ -143,9 +143,9 @@ export default class FileDialog extends Dialog {
               }
             });
 
-          this.args.path = path;
+          this.args.path = file;
 
-          actions._readdir({path, files});
+          actions._readdir({path: file.path, files});
         },
 
         setFilename: filename => state => ({filename}),
@@ -158,7 +158,7 @@ export default class FileDialog extends Dialog {
           activate: ({data, ev}) => {
             if (data.isDirectory) {
               a.setFilename(null);
-              a.setPath(data.path);
+              a.setPath(data);
             } else {
               this.value = data.isFile ? data : null;
               this.emitCallback(this.getPositiveButton(), ev, true);
@@ -184,19 +184,21 @@ export default class FileDialog extends Dialog {
         })
       ]), $content);
 
-      a.setPath(startingPath);
+      a.setPath(startingLocation);
     });
   }
 
   getValue() {
     if (this.args.type === 'save') {
+      const {path} = this.args.path;
       const filename = this.win.$content.querySelector('input[type=text]')
         .value;
 
-      const path = this.args.path.replace(/\/?$/, '/') + filename;
-
       return filename
-        ? {path, filename}
+        ? Object.assign({}, this.args.path, {
+          filename,
+          path: path.replace(/\/?$/, '/') + filename
+        })
         : undefined;
     }
 
