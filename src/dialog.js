@@ -146,6 +146,12 @@ export default class Dialog {
 
     this.win = this.core.make('osjs/window', opts);
 
+    this.win.on('keydown', ev => {
+      if (ev.keyCode === 27) {
+        this.emitCallback(this.getNegativeButton(), null, true);
+      }
+    });
+
     this.win.on('dialog:button', (name, ev) => {
       this.emitCallback(name, ev, true);
     });
