@@ -45,8 +45,14 @@ export default class FontDialog extends Dialog {
    * Constructor
    * @param {Core} core OS.js Core reference
    * @param {Object} args Arguments given from service creation
-   * @param {String} [args.title] Dialog title
-   * @param {String} [args.message] Dialog message
+   * @param {number} [args.minSize=6] Minimum size
+   * @param {number} [args.maxSize] Maximum size
+   * @param {string} [args.unit=px] Unit
+   * @param {string} [args.name] Initial font name
+   * @param {number} [args.size] Initial font size
+   * @param {string} [args.text] What text to preview
+   * @param {string[]} [args.controls] What controls to show
+   * @param {string[]} [args.fonts] List of fonts
    * @param {Function} callback The callback function
    */
   constructor(core, args, callback) {
@@ -59,6 +65,7 @@ export default class FontDialog extends Dialog {
       size: 10,
       style: 'regular',
       text: 'The quick brown fox jumps over the lazy dog',
+      controls: ['size', 'name', 'style'],
       fonts: [
         'Roboto',
         'arial',
@@ -68,7 +75,7 @@ export default class FontDialog extends Dialog {
     }, args);
 
     super(core, args, {
-      className: 'alert',
+      className: 'info',
       window: {
         title: args.title,
         attributes: {
@@ -78,7 +85,7 @@ export default class FontDialog extends Dialog {
           }
         }
       },
-      buttons: ['close']
+      buttons: ['ok', 'cancel']
     }, callback);
 
     this.value = {
@@ -95,7 +102,10 @@ export default class FontDialog extends Dialog {
       .reduce((o, i) => Object.assign(o, {[i]: i}), {});
 
     const fontNames = this.args.fonts
-      .reduce((o, i) => Object.assign(o, {[i]: i}), {});
+      .reduce((o, i) => {
+        const k = i.toLowerCase();
+        return Object.assign(o, {[k]: i});
+      }, {});
 
     const fontStyles = {
       'regular': 'Regular',
@@ -123,19 +133,19 @@ export default class FontDialog extends Dialog {
       app(initialState, initialActions, (state, actions) => this.createView([
         h(Toolbar, {}, [
           h(SelectField, {
-            box: {grow: 1},
+            box: {grow: 1, style: {display: this.args.controls.indexOf('size') !== -1 ? 'flex' : 'none'}},
             value: state.size,
             choices: fontSizes,
             onchange: (ev, v) => actions.setSize(v)
           }),
           h(SelectField, {
-            box: {grow: 1},
-            value: state.font,
+            box: {grow: 1, style: {display: this.args.controls.indexOf('name') !== -1 ? 'flex' : 'none'}},
+            value: state.name.toLowerCase(),
             choices: fontNames,
             onchange: (ev, v) => actions.setFont(v)
           }),
           h(SelectField, {
-            box: {grow: 1},
+            box: {grow: 1, style: {display: this.args.controls.indexOf('style') !== -1 ? 'flex' : 'none'}},
             value: state.size,
             choices: fontStyles,
             onchange: (ev, v) => actions.setStyle(v)
