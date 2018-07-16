@@ -1,5 +1,9 @@
 # Changelog for osjs-dialog
 
+## 3.0.0-alpha.23
+
+* Fixes to Font dialog
+
 ## 3.0.0-alpha.22
 
 * Prompt dialog updates
