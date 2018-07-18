@@ -182,7 +182,7 @@ export default class Dialog {
    * @return {Object} Virtual dom node
    */
   createView(children) {
-    return h(Box, {}, [
+    return h(Box, {grow: 1, shrink: 1}, [
       ...children,
       h(Toolbar, {class: 'osjs-dialog-buttons'}, [
         ...this.createButtons()
