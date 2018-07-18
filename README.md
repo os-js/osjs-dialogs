@@ -13,4 +13,6 @@
 
 This is the Dialogs module for OS.js v3
 
+[![Build Status](https://travis-ci.org/os-js/osjs-dialogs.svg?branch=master)](https://travis-ci.org/os-js/osjs-dialogs)
+
 **PLEASE NOTE THAT THIS IS AN ALPHA PRE-RELEASE AND SUBJECT TO CHANGE WITHOUT NOTICE**
