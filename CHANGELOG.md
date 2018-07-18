@@ -1,5 +1,13 @@
 # Changelog for osjs-dialog
 
+## 3.0.0-alpha.24
+
+* Added travis-ci badge to README
+* Lint pass
+* Added initial travis-ci config
+* Added stylelintrc
+* Updated default dialog view flex
+
 ## 3.0.0-alpha.23
 
 * Fixes to Font dialog
