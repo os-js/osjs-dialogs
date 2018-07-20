@@ -36,10 +36,13 @@ import {
   listView
 } from '@osjs/gui';
 
+const getMountpoint = str => str
+  .split(':')[0] + ':/';
+
 const getMountpoints = core => core.make('osjs/fs')
   .mountpoints(true)
   .reduce((mounts, iter) => Object.assign(mounts, {
-    [iter.name]: iter.label
+    [iter.root]: iter.label
   }), {});
 
 /**
@@ -97,7 +100,7 @@ export default class FileDialog extends Dialog {
 
     super.render(options, ($content) => {
       const a = app({
-        mount: startingLocation ? startingLocation.path.split(':')[0] : null,
+        mount: startingLocation ? getMountpoint(startingLocation.path) : null,
         filename: this.args.filename,
         listview: listView.state({
           columns: [{
@@ -124,7 +127,7 @@ export default class FileDialog extends Dialog {
         },
 
         setMountpoint: mount => (state, actions) => {
-          actions.setPath({path: mount + ':/'});
+          actions.setPath({path: mount});
 
           return {mount};
         },
