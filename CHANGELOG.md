@@ -1,5 +1,11 @@
 # Changelog for osjs-dialog
 
+## 3.0.0-alpha.25
+
+* Updated file dialog dropdown FS usage
+* Updated eslintrc
+* Updated npmignore
+
 ## 3.0.0-alpha.24
 
 * Added travis-ci badge to README
