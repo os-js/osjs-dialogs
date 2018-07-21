@@ -41,6 +41,9 @@ const getMountpoint = str => str
 
 const getMountpoints = core => core.make('osjs/fs')
   .mountpoints(true)
+  .filter(mount => {
+    return !(mount.attributes.readOnly && mount.attributes.visibility === 'restricted');
+  })
   .reduce((mounts, iter) => Object.assign(mounts, {
     [iter.root]: iter.label
   }), {});
