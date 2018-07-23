@@ -28,6 +28,7 @@
  * @licence Simplified BSD License
  */
 
+import './index.scss';
 import DialogServiceProvider from './src/provider';
 import AlertDialog from './src/dialogs/alert';
 import ConfirmDialog from './src/dialogs/confirm';

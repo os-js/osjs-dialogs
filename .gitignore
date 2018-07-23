@@ -1,5 +1,7 @@
 *.swp
 *.swo
 .tern-*
+.flowconfig
 node_modules
 package-lock.json
+dist/
