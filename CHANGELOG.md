@@ -1,5 +1,10 @@
 # Changelog for osjs-dialog
 
+## 3.0.0-alpha.26
+
+* Prebuild npm package
+* Filter certain mounts in file dialog
+
 ## 3.0.0-alpha.25
 
 * Updated file dialog dropdown FS usage
