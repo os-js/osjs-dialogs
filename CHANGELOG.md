@@ -1,5 +1,9 @@
 # Changelog for osjs-dialog
 
+## 3.0.0-alpha.27
+
+* Removed a gitignore file leading to missing files in npm package
+
 ## 3.0.0-alpha.26
 
 * Prebuild npm package

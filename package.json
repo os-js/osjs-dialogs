@@ -1,6 +1,6 @@
 {
   "name": "@osjs/dialogs",
-  "version": "3.0.0-alpha.26",
+  "version": "3.0.0-alpha.27",
   "description": "OS.js v3 Dialogs",
   "main": "dist/main.js",
   "module": "dist/main.js",
@@ -32,8 +32,8 @@
   "license": "BSD-2-Clause",
   "dependencies": {},
   "devDependencies": {
-    "@osjs/common": "^3.0.0-alpha.15",
-    "@osjs/gui": "^3.0.0-alpha.29",
+    "@osjs/common": "^3.0.0-alpha.16",
+    "@osjs/gui": "^3.0.0-alpha.30",
     "@babel/core": "^7.0.0-beta.54",
     "@babel/plugin-transform-runtime": "^7.0.0-beta.54",
     "@babel/preset-env": "^7.0.0-beta.54",
