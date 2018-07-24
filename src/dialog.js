@@ -161,7 +161,7 @@ export default class Dialog {
     });
 
     this.win.on('render', () => {
-      //this.win.resizeFit();
+      // this.win.resizeFit();
       this.win.focus();
 
       const focusButton = this.getNegativeButton();
@@ -216,7 +216,7 @@ export default class Dialog {
     }
     this.calledBack = true;
 
-    console.debug('Callback in dialog', arguments);
+    console.debug('Callback in dialog', name, ev, close);
 
     this.callback(name, this.getValue(), ev);
 

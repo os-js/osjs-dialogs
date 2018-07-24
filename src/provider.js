@@ -67,7 +67,7 @@ export default class DialogServiceProvider {
       }
 
       if (typeof callback !== 'function') {
-        throw new Error(`Dialog requires a callback`);
+        throw new Error('Dialog requires a callback');
       }
 
       const instance = new this.registry[name](this.core, args, callback);
