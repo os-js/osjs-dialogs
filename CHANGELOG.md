@@ -1,5 +1,10 @@
 # Changelog for osjs-dialog
 
+## 3.0.0-alpha.28
+
+* Publish in production mode
+* Fixed eslint comment warnings
+
 ## 3.0.0-alpha.27
 
 * Removed a gitignore file leading to missing files in npm package
