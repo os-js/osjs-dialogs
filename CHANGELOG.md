@@ -1,5 +1,9 @@
 # Changelog for osjs-dialog
 
+## 3.0.0-alpha.29
+
+* Updated dependencies
+
 ## 3.0.0-alpha.28
 
 * Publish in production mode
