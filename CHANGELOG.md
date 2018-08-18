@@ -1,5 +1,10 @@
 # Changelog for osjs-dialog
 
+## 3.0.0-alpha.30
+
+* Added localization
+* Updated key events usage from windows
+
 ## 3.0.0-alpha.29
 
 * Updated dependencies
