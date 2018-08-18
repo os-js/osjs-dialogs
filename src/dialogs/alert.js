@@ -29,7 +29,7 @@
  */
 
 import {h, app} from 'hyperapp';
-import {Box} from '@osjs/gui';
+import {Box, TextareaField} from '@osjs/gui';
 import Dialog from '../dialog';
 
 /**
@@ -44,6 +44,7 @@ export default class AlertDialog extends Dialog {
    * @param {String} [args.title] Dialog title
    * @param {String} [args.message] Dialog message
    * @param {String} [args.type] Alert type (info/warning/error)
+   * @param {Error|*} [args.error] When 'alert' type is set this error stack or message will appear in a textbox
    * @param {Function} callback The callback function
    */
   constructor(core, args, callback) {
@@ -71,10 +72,21 @@ export default class AlertDialog extends Dialog {
 
   render(options) {
     super.render(options, ($content) => {
+      const children = [
+        h('div', {class: 'osjs-dialog-message'}, String(this.args.message))
+      ];
+
+      if (this.args.type === 'error') {
+        const {error} = this.args;
+        const msg = error instanceof Error
+          ? (error.stack ? error.stack : error)
+          : String(error);
+
+        children.push(h(TextareaField, {value: msg, readonly: true, placeholder: this.args.message}));
+      }
+
       app({}, {}, (state, actions) => this.createView([
-        h(Box, {grow: 1}, [
-          h('div', {class: 'osjs-dialog-message'}, String(this.args.message))
-        ])
+        h(Box, {grow: 1}, children)
       ]), $content);
     });
   }
