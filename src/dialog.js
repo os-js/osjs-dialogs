@@ -38,22 +38,23 @@ let dialogCount = 0;
 /*
  * Default button attributes
  */
-const defaultButtons = {
-  ok: {label: 'Ok', positive: true},
-  close: {label: 'Close'},
-  cancel: {label: 'Cancel'},
-  yes: {label: 'Yes', positive: true},
-  no: {label: 'No'}
-};
+const defaultButtons = (_) => ({
+  ok: {label: _('LBL_OK'), positive: true},
+  close: {label: _('LBL_CLOSE')},
+  cancel: {label: _('LBL_CANCEL')},
+  yes: {label: _('LBL_YES'), positive: true},
+  no: {label: _('LBL_NO')}
+});
 
 /*
  * Creates a button from name
  */
-const defaultButton = n => {
-  if (defaultButtons[n]) {
+const defaultButton = (n, _) => {
+  const defs = defaultButtons(_);
+  if (defs[n]) {
     return Object.assign({}, {
       name: n
-    }, defaultButtons[n]);
+    }, defs[n]);
   }
 
   return {label: n, name: n};
@@ -115,9 +116,11 @@ export default class Dialog {
     this.value = undefined;
     this.calledBack = false;
 
+    const _ = core.make('osjs/locale').translate;
+
     this.buttons = this.options.buttons.map(n =>
       typeof n === 'string'
-        ? defaultButton(n)
+        ? defaultButton(n, _)
         : {
           label: n.label || 'button',
           name: n.name || 'unknown'
