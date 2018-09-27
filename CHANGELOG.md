@@ -1,5 +1,9 @@
 # Changelog for osjs-dialog
 
+## 3.0.0-alpha.32
+
+* Updated dependencies
+
 ## 3.0.0-alpha.31
 
 * Added error/exception dump support in 'error' alert dialog
