@@ -69,6 +69,7 @@ const createOptions = (options, args) =>
     className: 'unknown',
     defaultValue: null,
     buttons: [],
+    sound: null,
     window: {
       id: options.id || 'Dialog_' + String(dialogCount),
       title: 'Dialog',
@@ -172,6 +173,8 @@ export default class Dialog {
       if (btn) {
         btn.focus();
       }
+
+      this.playSound();
     });
 
     this.win.init();
@@ -226,6 +229,21 @@ export default class Dialog {
     if (close) {
       this.destroy();
     }
+  }
+
+  /**
+   */
+  playSound() {
+    if (this.core.has('osjs/sounds')) {
+      const snd = this.options.sound;
+      if (snd) {
+        this.core.make('osjs/sounds').play(snd);
+
+        return true;
+      }
+    }
+
+    return false;
   }
 
   /**

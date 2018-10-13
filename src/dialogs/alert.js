@@ -41,9 +41,10 @@ export default class AlertDialog extends Dialog {
    * Constructor
    * @param {Core} core OS.js Core reference
    * @param {Object} args Arguments given from service creation
-   * @param {String} [args.title] Dialog title
-   * @param {String} [args.message] Dialog message
-   * @param {String} [args.type] Alert type (info/warning/error)
+   * @param {String} [args.title='Alert'] Dialog title
+   * @param {String} [args.message=''] Dialog message
+   * @param {String} [args.type='info'] Alert type (info/warning/error)
+   * @param {String} [args.sound='bell'] Sound
    * @param {Error|*} [args.error] When 'alert' type is set this error stack or message will appear in a textbox
    * @param {Function} callback The callback function
    */
@@ -54,8 +55,13 @@ export default class AlertDialog extends Dialog {
       message: ''
     }, args);
 
+    if (typeof args.sound === 'undefined') {
+      args.sound = args.type === 'error' ? 'bell' : 'message';
+    }
+
     super(core, args, {
       className: 'alert',
+      sound: args.sound,
       window: {
         title: args.title,
         attributes: {
