@@ -1,5 +1,9 @@
 # Changelog for osjs-dialog
 
+## 3.0.0-alpha.34
+
+* Added sound support
+
 ## 3.0.0-alpha.33
 
 * Updated dependencies
