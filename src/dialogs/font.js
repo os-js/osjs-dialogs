@@ -34,7 +34,7 @@ import {
   Toolbar,
   SelectField,
   TextareaField
-} from '@osjs/gui';
+} from '@osjs/gui/index.js';
 
 /**
  * Default OS.js Font Dialog

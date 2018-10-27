@@ -29,7 +29,7 @@
  */
 
 import {h, app} from 'hyperapp';
-import {Box, TextareaField} from '@osjs/gui';
+import {Box, TextareaField} from '@osjs/gui/index.js';
 import Dialog from '../dialog';
 
 /**
