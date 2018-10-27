@@ -1,5 +1,9 @@
 # Changelog for osjs-dialog
 
+## 3.0.3
+
+* Updated @osjs/gui
+
 ## 3.0.0-alpha.34
 
 * Added sound support
