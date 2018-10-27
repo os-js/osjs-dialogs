@@ -34,7 +34,7 @@ import {
   TextField,
   SelectField,
   listView
-} from '@osjs/gui/index.js';
+} from '@osjs/gui';
 
 const getMountpoint = str => str
   .split(':')[0] + ':/';

@@ -35,7 +35,7 @@ import {
   BoxContainer,
   TextField,
   RangeField
-} from '@osjs/gui/index.js';
+} from '@osjs/gui';
 
 /*
  * Creates a palette canvas

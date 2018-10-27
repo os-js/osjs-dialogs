@@ -30,7 +30,7 @@
 
 import {h, app} from 'hyperapp';
 import Dialog from '../dialog';
-import {Box, TextField} from '@osjs/gui/index.js';
+import {Box, TextField} from '@osjs/gui';
 
 /**
  * Default OS.js Prompt Dialog
