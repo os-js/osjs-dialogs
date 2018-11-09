@@ -1,5 +1,9 @@
 # Changelog for osjs-dialog
 
+## 3.0.4
+
+* Export 'Dialog' class
+
 ## 3.0.3
 
 * Updated @osjs/gui
