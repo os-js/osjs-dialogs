@@ -58,6 +58,10 @@ export default class FileDialog extends Dialog {
    * @param {Core} core OS.js Core reference
    * @param {Object} args Arguments given from service creation
    * @param {String} [args.title] Dialog title
+   * @param {String} [args.type] Dialog type (open/save)
+   * @param {String} [args.path] Current path
+   * @param {String} [args.filename] Current filename
+   * @param {String[]} [args.mime] Mime filter
    * @param {Function} callback The callback function
    */
   constructor(core, args, callback) {
@@ -140,7 +144,7 @@ export default class FileDialog extends Dialog {
           const files = await this.core.make('osjs/vfs')
             .readdir(file, {
               filter: (item) => {
-                if (this.args.mime) {
+                if (this.args.mime.length) {
                   return item.mime
                     ? this.args.mime.some(test => (new RegExp(test)).test(item.mime))
                     : true;
