@@ -1,5 +1,9 @@
 # Changelog for osjs-dialog
 
+## 3.0.5
+
+* Fixed a mime filter in file dialog + doc update
+
 ## 3.0.4
 
 * Export 'Dialog' class

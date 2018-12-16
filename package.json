@@ -1,6 +1,6 @@
 {
   "name": "@osjs/dialogs",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "description": "OS.js v3 Dialogs",
   "main": "dist/main.js",
   "module": "dist/main.js",
