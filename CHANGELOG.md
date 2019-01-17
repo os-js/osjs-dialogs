@@ -1,5 +1,12 @@
 # Changelog for osjs-dialog
 
+## 3.0.6
+
+* Fixed escape key not working (#2)
+* Updated README
+* Updated eslintrc
+* Updated copyright(s)
+
 ## 3.0.5
 
 * Fixed a mime filter in file dialog + doc update
