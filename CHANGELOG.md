@@ -1,5 +1,9 @@
 # Changelog for osjs-dialog
 
+## 3.0.7
+
+* Updated dependencies
+
 ## 3.0.6
 
 * Fixed escape key not working (#2)
