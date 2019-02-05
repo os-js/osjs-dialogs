@@ -1,5 +1,9 @@
 # Changelog for osjs-dialog
 
+## 3.0.9
+
+* Fix ok button in file dialog is disabled in initial save
+
 ## 3.0.8
 
 * Disable 'ok' button in file dialog depending on selection
