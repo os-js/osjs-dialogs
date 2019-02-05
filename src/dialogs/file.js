@@ -128,6 +128,8 @@ export default class FileDialog extends Dialog {
         }),
         buttons: {
           ok: this.args.filetype === 'directory'
+            ? true
+            : !!this.args.filename
         }
       }, {
         _readdir: ({path, files}) => (state, actions) => {
@@ -175,7 +177,7 @@ export default class FileDialog extends Dialog {
           actions._readdir({path: file.path, files});
 
           if (this.args.filetype === 'file') {
-            actions.setButtonState({ok: false});
+            actions.setButtonState({ok: this.args.type === 'save' ? !!this.args.filename : false});
           }
         },
 
