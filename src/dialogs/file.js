@@ -58,8 +58,9 @@ export default class FileDialog extends Dialog {
    * @param {Core} core OS.js Core reference
    * @param {Object} args Arguments given from service creation
    * @param {String} [args.title] Dialog title
-   * @param {String} [args.type] Dialog type (open/save)
+   * @param {String} [args.type='open'] Dialog type (open/save)
    * @param {String} [args.path] Current path
+   * @param {String} [args.filetype='file'] Dialog filetype (file/directory)
    * @param {String} [args.filename] Current filename
    * @param {String[]} [args.mime] Mime filter
    * @param {Function} callback The callback function
@@ -68,17 +69,23 @@ export default class FileDialog extends Dialog {
     args = Object.assign({}, {
       title: null,
       type: 'open',
-      path: null,
+      filetype: 'file',
+      path: core.config('vfs.defaultPath'),
       filename: null,
       mime: []
     }, args);
 
-    if (!args.path) {
-      args.path = core.config('vfs.defaultPath');
-    }
-
     if (typeof args.path === 'string') {
       args.path = {path: args.path};
+    }
+
+    try {
+      args.path = Object.assign({
+        isDirectory: true,
+        filename: args.path.path.split(':/')[1].split('/').pop() || ''
+      }, args.path);
+    } catch (e) {
+      console.warn(e);
     }
 
     const _ = core.make('osjs/locale').translate;
@@ -144,7 +151,9 @@ export default class FileDialog extends Dialog {
           const files = await this.core.make('osjs/vfs')
             .readdir(file, {
               filter: (item) => {
-                if (this.args.mime.length) {
+                if (this.args.filetype === 'directory') {
+                  return item.isDirectory === true;
+                } else if (this.args.mime.length) {
                   return item.mime
                     ? this.args.mime.some(test => (new RegExp(test)).test(item.mime))
                     : true;
@@ -211,6 +220,10 @@ export default class FileDialog extends Dialog {
           path: path.replace(/\/?$/, '/') + filename
         })
         : undefined;
+    } else {
+      if (this.args.filetype === 'directory') {
+        return this.args.path;
+      }
     }
 
     return super.getValue();
