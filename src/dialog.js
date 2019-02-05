@@ -185,27 +185,30 @@ export default class Dialog {
   /**
    * Creates the default view
    * @param {Object[]} children Child nodes
+   * @param {Object} [state] Pass on application state (mainly used for buttons)
    * @return {Object} Virtual dom node
    */
-  createView(children) {
+  createView(children, state = {}) {
     return h(Box, {grow: 1, shrink: 1}, [
       ...children,
       h(Toolbar, {class: 'osjs-dialog-buttons'}, [
-        ...this.createButtons()
+        ...this.createButtons(state.buttons || {})
       ])
     ]);
   }
 
   /**
    * Gets the button (virtual) DOM elements
+   * @param {Object} [states] Button states
    * @return {Object[]} Virtual dom node children list
    */
-  createButtons() {
+  createButtons(states = {}) {
     const onclick = (n, ev) => {
       this.win.emit('dialog:button', n, ev);
     };
 
     return this.buttons.map(b => h(Button, Object.assign({}, {
+      disabled: states[b.name] === false,
       onclick: ev => onclick(b.name, ev)
     }, b)));
   }

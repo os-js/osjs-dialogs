@@ -125,7 +125,10 @@ export default class FileDialog extends Dialog {
           }, {
             label: 'Size'
           }]
-        })
+        }),
+        buttons: {
+          ok: this.args.filetype === 'directory'
+        }
       }, {
         _readdir: ({path, files}) => (state, actions) => {
           const listview = state.listview;
@@ -140,6 +143,10 @@ export default class FileDialog extends Dialog {
 
           return {path, listview};
         },
+
+        setButtonState: btn => state => ({
+          buttons: Object.assign({}, state.buttons, btn)
+        }),
 
         setMountpoint: mount => (state, actions) => {
           actions.setPath({path: mount});
@@ -166,6 +173,10 @@ export default class FileDialog extends Dialog {
           this.args.path = file;
 
           actions._readdir({path: file.path, files});
+
+          if (this.args.filetype === 'file') {
+            actions.setButtonState({ok: false});
+          }
         },
 
         setFilename: filename => state => ({filename}),
@@ -174,6 +185,10 @@ export default class FileDialog extends Dialog {
           select: ({data}) => {
             a.setFilename(data.isFile ? data.filename : null);
             this.value = data.isFile ? data : null;
+
+            if (this.args.filetype === 'file' && data.isFile) {
+              a.setButtonState({ok: true});
+            }
           },
           activate: ({data, ev}) => {
             if (data.isDirectory) {
@@ -198,11 +213,16 @@ export default class FileDialog extends Dialog {
           placeholder: 'Filename',
           value: state.filename,
           onenter: (ev, value) => this.emitCallback(this.getPositiveButton(), ev, true),
+          oninput: (ev) => {
+            const filename = ev.target.value;
+            actions.setButtonState({ok: !!filename});
+            actions.setFilename(filename);
+          },
           box: {
             style: {display: this.args.type === 'save' ? null : 'none'}
           }
         })
-      ]), $content);
+      ], state), $content);
 
       a.setPath(startingLocation);
     });
