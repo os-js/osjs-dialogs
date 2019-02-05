@@ -1,5 +1,10 @@
 # Changelog for osjs-dialog
 
+## 3.0.8
+
+* Disable 'ok' button in file dialog depending on selection
+* Added support for directory selection (#3)
+
 ## 3.0.7
 
 * Updated dependencies
