@@ -203,7 +203,7 @@ export default class ColorDialog extends Dialog {
 
       const a = app(initialState, initialActions, (state, actions) => this.createView([
         h(Box, {orientation: 'vertical', grow: 1, shrink: 1}, [
-          h(BoxContainer, {shrink: 1, orientation: 'horizontal'}, [
+          h(BoxContainer, {orientation: 'horizontal'}, [
             h('div', {
               class: 'osjs-gui-border',
               style: {display: 'inline-block'},
@@ -214,7 +214,7 @@ export default class ColorDialog extends Dialog {
               style: {width: '100px', color: state.hex}
             })
           ]),
-          h(Box, {padding: false}, [
+          h(Box, {padding: false, grow: 1, shrink: 1}, [
             rangeContainer('r', state.r, actions),
             rangeContainer('g', state.g, actions),
             rangeContainer('b', state.b, actions)
