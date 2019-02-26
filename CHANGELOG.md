@@ -1,5 +1,9 @@
 # Changelog for osjs-dialog
 
+## 3.0.10
+
+* Fixed some margin errors in ColorDialog UI
+
 ## 3.0.9
 
 * Fix ok button in file dialog is disabled in initial save
