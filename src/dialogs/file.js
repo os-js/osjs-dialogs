@@ -230,6 +230,45 @@ export default class FileDialog extends Dialog {
     });
   }
 
+  emitCallback(name, ev, close = false) {
+    if (this.calledBack) {
+      return;
+    }
+
+    const file = this.getValue();
+    const next = () => super.emitCallback(name, ev, close);
+
+    const confirm = callback => this.core.make('osjs/dialog', 'confirm', {
+      message: `Do you want to overwrite ${file.path}?`
+    }, {
+      parent: this.win,
+      attributes: {modal: true}
+    }, (btn) => {
+      if (btn === 'yes') {
+        callback();
+      }
+    });
+
+    if (this.args.type === 'save' && this.core.has('osjs/vfs')) {
+      this.core
+        .make('osjs/vfs')
+        .exists(file)
+        .then(exists => {
+          if (exists) {
+            confirm(() => next());
+          } else {
+            next();
+          }
+        })
+        .catch(error => {
+          console.error(error);
+          next();
+        });
+    } else {
+      next();
+    }
+  }
+
   getValue() {
     if (this.args.type === 'save') {
       const {path} = this.args.path;
