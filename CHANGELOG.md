@@ -1,5 +1,10 @@
 # Changelog for osjs-dialog
 
+## 3.0.11
+
+* Add overwrite confirmation to file dialog (fixes #4)
+* Updated dependencies
+
 ## 3.0.10
 
 * Fixed some margin errors in ColorDialog UI
