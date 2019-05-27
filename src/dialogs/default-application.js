@@ -91,7 +91,7 @@ export default class DefaultApplicationDialog extends Dialog {
           h(SelectField, {
             choices: this.args.choices,
             value: state.value,
-            onchange: (ev, val) => actions.setChecked(val)
+            onchange: (ev, val) => actions.setValue(val)
           }),
           h(ToggleField, {
             label: this.args.label || 'Use as default',
