@@ -36,6 +36,7 @@ import ColorDialog from './dialogs/color';
 import FontDialog from './dialogs/font';
 import FileDialog from './dialogs/file';
 import ChoiceDialog from './dialogs/choice';
+import DefaultApplicationDialog from './dialogs/default-application';
 import CustomDialog from './dialogs/custom';
 
 export default class DialogServiceProvider {
@@ -50,7 +51,8 @@ export default class DialogServiceProvider {
       color: ColorDialog,
       font: FontDialog,
       file: FileDialog,
-      choice: ChoiceDialog
+      choice: ChoiceDialog,
+      defaultApplication: DefaultApplicationDialog
     }, args.registry || {});
   }
 
