@@ -1,5 +1,10 @@
 # Changelog for osjs-dialog
 
+## 3.0.12
+
+* Updated dependencies
+* Added 'default application' dialog
+
 ## 3.0.11
 
 * Add overwrite confirmation to file dialog (fixes #4)
