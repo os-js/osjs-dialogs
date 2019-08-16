@@ -1,5 +1,10 @@
 # Changelog for osjs-dialog
 
+## 3.0.15
+
+* Updated cancel button behavior in File dialog (#6)
+* Updated eslint
+
 ## 3.0.12
 
 * Updated dependencies
