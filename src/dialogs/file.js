@@ -237,6 +237,9 @@ export default class FileDialog extends Dialog {
 
     const file = this.getValue();
     const next = () => super.emitCallback(name, ev, close);
+    const isSave = this.args.type === 'save';
+    const buttonCancel = name === 'cancel';
+    const hasVfs = this.core.has('osjs/vfs');
 
     const confirm = callback => this.core.make('osjs/dialog', 'confirm', {
       message: `Do you want to overwrite ${file.path}?`
@@ -249,7 +252,7 @@ export default class FileDialog extends Dialog {
       }
     });
 
-    if (this.args.type === 'save' && this.core.has('osjs/vfs')) {
+    if (file && isSave && hasVfs && !buttonCancel) {
       this.core
         .make('osjs/vfs')
         .exists(file)
