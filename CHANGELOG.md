@@ -1,5 +1,12 @@
 # Changelog for osjs-dialog
 
+## 3.0.16
+
+* Updated webpack config
+* Updated dependencies
+* Updated dotfile usage
+* Updated copyright notices in preambles
+
 ## 3.0.15
 
 * Updated cancel button behavior in File dialog (#6)
