@@ -32,27 +32,27 @@
   "license": "BSD-2-Clause",
   "dependencies": {},
   "devDependencies": {
-    "@babel/core": "^7.4.5",
-    "@babel/plugin-transform-runtime": "^7.4.4",
-    "@babel/preset-env": "^7.4.5",
-    "@babel/runtime": "^7.4.5",
-    "@osjs/eslint-config": "^1.0.0",
-    "@osjs/gui": "^4.0.23",
+    "@babel/core": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "@babel/runtime": "^7.8.3",
+    "@osjs/eslint-config": "^1.0.2",
+    "@osjs/gui": "^4.0.28",
     "babel-loader": "^8.0.6",
-    "css-loader": "^2.1.1",
+    "css-loader": "^3.4.2",
     "deepmerge": "^2.2.1",
-    "eslint": "^5.16.0",
-    "hyperapp": "^1.2.9",
+    "eslint": "^6.8.0",
+    "hyperapp": "^1.2.10",
     "is-plain-object": "^2.0.4",
-    "mini-css-extract-plugin": "^0.7.0",
-    "node-sass": "^4.12.0",
-    "optimize-css-assets-webpack-plugin": "^5.0.1",
-    "sass-loader": "^7.1.0",
-    "stylelint": "^10.0.1",
-    "stylelint-config-standard": "^18.3.0",
-    "stylelint-scss": "^3.6.1",
-    "webpack": "^4.32.2",
-    "webpack-cli": "^3.3.2"
+    "mini-css-extract-plugin": "^0.9.0",
+    "node-sass": "^4.13.1",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "sass-loader": "^8.0.2",
+    "stylelint": "^13.0.0",
+    "stylelint-config-standard": "^19.0.0",
+    "stylelint-scss": "^3.13.0",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
   },
   "bugs": {
     "url": "https://github.com/os-js/osjs-dialogs/issues"
@@ -73,9 +73,16 @@
       "stylelint-scss"
     ],
     "rules": {
-      "at-rule-no-unknown": [true, {
-        "ignoreAtRules": ["extend", "mixin", "include"]
-      }]
+      "at-rule-no-unknown": [
+        true,
+        {
+          "ignoreAtRules": [
+            "extend",
+            "mixin",
+            "include"
+          ]
+        }
+      ]
     },
     "extends": "stylelint-config-standard"
   },
@@ -103,7 +110,9 @@
           }
         }
       },
-      {"name": "esdoc-publish-html-plugin"}
+      {
+        "name": "esdoc-publish-html-plugin"
+      }
     ]
   }
 }
