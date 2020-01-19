@@ -1,5 +1,11 @@
 # Changelog for osjs-dialog
 
+## 3.0.17
+
+* Updated package.json scripts
+* Now using @osjs/stylelint-config
+* Moved some devDependencies to dependencies
+
 ## 3.0.16
 
 * Updated webpack config
