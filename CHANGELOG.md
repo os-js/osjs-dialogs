@@ -1,5 +1,10 @@
 # Changelog for osjs-dialog
 
+## 3.0.18
+
+* Updated dependencies
+* Now using @osjs/dev-meta
+
 ## 3.0.17
 
 * Updated package.json scripts
