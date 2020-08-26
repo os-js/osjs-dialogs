@@ -43,6 +43,7 @@ export default class ChoiceDialog extends Dialog {
    * @param {Object} args Arguments given from service creation
    * @param {String} [args.title] Dialog title
    * @param {String} [args.message] Dialog message
+   * @param {String} [args.value] Set default selected value
    * @param {Map<String,*>} [args.choices] Choice map
    * @param {Function} callback The callback function
    */
@@ -50,6 +51,7 @@ export default class ChoiceDialog extends Dialog {
     args = Object.assign({}, {
       title: 'Choice',
       message: '',
+      value: undefined,
       choices: {}
     }, args);
 
@@ -68,7 +70,9 @@ export default class ChoiceDialog extends Dialog {
       buttons: ['ok', 'close']
     }, callback);
 
-    this.value = Object.keys(this.args.choices)[0];
+    this.value = typeof args.value !== 'undefined'
+      ? this.args.value
+      : Object.keys(this.args.choices)[0];
   }
 
   render(options) {
