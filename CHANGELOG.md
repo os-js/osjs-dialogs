@@ -1,5 +1,10 @@
 # Changelog for osjs-dialog
 
+## 3.0.20 -2020-08-26
+
+* Added option for setting default value in choice dialog (#9)
+* Updated dependencies
+
 ## 3.0.18 - 2020-02-17
 
 * Updated dependencies
