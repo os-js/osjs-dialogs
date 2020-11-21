@@ -1,6 +1,10 @@
 # Changelog for osjs-dialog
 
-## 3.0.20 -2020-08-26
+## 3.0.21 - 2020-11-21
+
+* Added return of self in render() method (#10)
+
+## 3.0.20 - 2020-08-26
 
 * Added option for setting default value in choice dialog (#9)
 * Updated dependencies
