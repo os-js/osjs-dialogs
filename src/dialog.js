@@ -180,6 +180,8 @@ export default class Dialog {
     this.win.init();
     this.win.render(cb);
     this.win.focus();
+
+    return this;
   }
 
   /**
