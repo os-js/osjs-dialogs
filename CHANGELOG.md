@@ -1,5 +1,9 @@
 # Changelog for osjs-dialog
 
+## 3.0.22 - 2020-11-26
+
+* Updated dependencies
+
 ## 3.0.21 - 2020-11-21
 
 * Added return of self in render() method (#10)
