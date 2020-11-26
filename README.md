@@ -8,11 +8,10 @@
 [![Support](https://img.shields.io/badge/opencollective-donate-red.svg)](https://opencollective.com/osjs)
 [![Donate](https://img.shields.io/badge/liberapay-donate-yellowgreen.svg)](https://liberapay.com/os-js/)
 [![Donate](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://paypal.me/andersevenrud)
-[![Community](https://img.shields.io/badge/join-community-green.svg)](https://community.os-js.org/)
 
-# OS.js v3 Dialogs module
+# OS.js Dialogs module
 
-This is the Dialogs module for OS.js v3
+This is the Dialogs module for OS.js
 
 ## Contribution
 
@@ -23,7 +22,7 @@ This is the Dialogs module for OS.js v3
 
 ## Documentation
 
-See the [Official Manuals](https://manual.os-js.org/v3/) for articles, tutorials and guides.
+See the [Official Manuals](https://manual.os-js.org/) for articles, tutorials and guides.
 
 ## Links
 
@@ -31,6 +30,5 @@ See the [Official Manuals](https://manual.os-js.org/v3/) for articles, tutorials
 * [Community Forums and Announcements](https://community.os-js.org/)
 * [Homepage](https://os-js.org/)
 * [Twitter](https://twitter.com/osjsorg) ([author](https://twitter.com/andersevenrud))
-* [Google+](https://plus.google.com/b/113399210633478618934/113399210633478618934)
 * [Facebook](https://www.facebook.com/os.js.org)
 * [Docker Hub](https://hub.docker.com/u/osjs/)
