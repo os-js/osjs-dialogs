@@ -1,5 +1,9 @@
 # Changelog for osjs-dialog
 
+## 3.0.23 - 2021-05-22
+
+* Fixed close button not canceling in save dialog (#11)
+
 ## 3.0.22 - 2020-11-26
 
 * Updated dependencies
