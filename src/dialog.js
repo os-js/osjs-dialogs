@@ -164,6 +164,10 @@ export default class Dialog {
       this.emitCallback('destroy');
     });
 
+    this.win.on('close', () => {
+      this.emitCallback('cancel', undefined, true);
+    });
+
     this.win.on('render', () => {
       // this.win.resizeFit();
       this.win.focus();
