@@ -1,5 +1,10 @@
 # Changelog for osjs-dialog
 
+## 3.0.24 - 2021-07-23
+
+* Add option to override progress dialog buttons
+* Updated dependencies
+
 ## 3.0.23 - 2021-05-22
 
 * Fixed close button not canceling in save dialog (#11)
