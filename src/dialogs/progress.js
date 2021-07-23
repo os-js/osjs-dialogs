@@ -45,12 +45,13 @@ export default class ProgressDialog extends Dialog {
    * @param {String} [args.message] Dialog message
    * @param {String} [args.status] Dialog status message
    * @param {String} [args.progress] Initial progress value
+   * @param {String[]} [args.buttons] Override dialog buttons
    * @param {Function} callback The callback function
    */
   constructor(core, args, callback) {
     super(core, args, {
       className: 'progress',
-      buttons: ['cancel'],
+      buttons: args.buttons || ['cancel'],
       window: {
         title: args.title || 'Progress',
         attributes: {
