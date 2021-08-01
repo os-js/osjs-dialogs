@@ -1,5 +1,9 @@
 # Changelog for osjs-dialog
 
+## 3.1.0 - 2021-08-01
+
+* Add wrapper for rendering in custom dialog
+
 ## 3.0.24 - 2021-07-23
 
 * Add option to override progress dialog buttons
