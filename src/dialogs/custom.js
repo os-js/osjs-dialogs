@@ -28,6 +28,7 @@
  * @licence Simplified BSD License
  */
 
+import {app, h} from 'hyperapp';
 import Dialog from '../dialog';
 
 /**
@@ -43,6 +44,24 @@ export default class CustomDialog extends Dialog {
 
   render(render) {
     return super.render({}, ($content, win) => render($content, win, this));
+  }
+
+  renderCustom(render, styles = {}) {
+    return this.render(($content, dialogWindow, dialog) => {
+      app({}, {}, () => {
+        return this.createView([
+          h('div', {
+            style: {
+              'flex-grow': 1,
+              'flex-shrink': 1,
+              position: 'relative',
+              ...styles
+            },
+            oncreate: $el => render($el, dialogWindow, dialog)
+          })
+        ]);
+      }, $content);
+    });
   }
 
   getValue() {
