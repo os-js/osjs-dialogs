@@ -1,5 +1,9 @@
 # Changelog for osjs-dialog
 
+## 3.1.1 - 2021-08-26
+
+* Fix exception when multiple destroys are called
+
 ## 3.1.0 - 2021-08-01
 
 * Add wrapper for rendering in custom dialog
