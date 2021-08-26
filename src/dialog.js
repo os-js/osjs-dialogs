@@ -134,7 +134,10 @@ export default class Dialog {
    * Destroys the dialog
    */
   destroy() {
-    this.win.destroy();
+    if (this.win) {
+      this.win.destroy();
+    }
+
     this.win = null;
     this.callback = null;
   }
