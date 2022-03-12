@@ -186,8 +186,6 @@ export default class ColorDialog extends Dialog {
             oncreate: el => (el.value = v),
             oninput: (ev, value) => {
               actions.setComponent({color: c, value});
-            },
-            onchange: (ev, value) => {
               actions.updateHex();
             }
           }),
