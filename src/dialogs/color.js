@@ -145,7 +145,7 @@ export default class ColorDialog extends Dialog {
     let color = args.color;
     if (color) {
       if (typeof color === 'string') {
-        if (color.substr(0, 1) !== '#') {
+        if (color.charAt(0) !== '#') {
           color = '#' + color;
         }
 
