@@ -1,5 +1,12 @@
 # Changelog for osjs-dialog
 
+## 3.1.2 - 2021-04-02
+
+* Fixed typo (#16)
+* Updated "chose" to "choose"
+* Use `oninput` slider event in color dialog for hex updates (#15)
+* Removed legacy `substr` (#13)
+
 ## 3.1.1 - 2021-08-26
 
 * Fix exception when multiple destroys are called
