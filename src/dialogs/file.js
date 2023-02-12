@@ -196,6 +196,7 @@ export default class FileDialog extends Dialog {
             if (data.isDirectory) {
               a.setFilename(null);
               a.setPath(data);
+              a.setButtonState({ok: false});
             } else {
               this.value = data.isFile ? data : null;
               this.emitCallback(this.getPositiveButton(), ev, true);
