@@ -185,7 +185,9 @@ export default class FileDialog extends Dialog {
 
         listview: listView.actions({
           select: ({data}) => {
-            a.setFilename(data.isFile ? data.filename : null);
+            if (data.isFile) {
+              a.setFilename(data.filename);
+            }
             this.value = data.isFile ? data : null;
 
             if (this.args.filetype === 'file' && data.isFile) {
@@ -194,7 +196,6 @@ export default class FileDialog extends Dialog {
           },
           activate: ({data, ev}) => {
             if (data.isDirectory) {
-              a.setFilename(null);
               a.setPath(data);
             } else {
               this.value = data.isFile ? data : null;
