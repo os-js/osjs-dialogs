@@ -1,5 +1,13 @@
 # Changelog for osjs-dialog
 
+## 3.1.3 - 2023-03-21
+
+* fix(file): filename is cleared on navigation (#18)
+* ci: add commitlint and husky
+* Remove now defunct esdoc deploy
+* Update source code license comments
+* Update LICENSE
+
 ## 3.1.2 - 2021-04-02
 
 * Fixed typo (#16)
