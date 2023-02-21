@@ -20,7 +20,8 @@
     "build": "webpack",
     "watch": "webpack --watch",
     "stylelint": "stylelint index.scss 'src/**/*.scss'",
-    "prepublishOnly": "npm run test && rm ./dist/* && NODE_ENV=production npm run build"
+    "prepublishOnly": "npm run test && rm ./dist/* && NODE_ENV=production npm run build",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -38,7 +39,10 @@
     "is-plain-object": "^2.0.4"
   },
   "devDependencies": {
-    "@osjs/dev-meta": "^2.1.0"
+    "@commitlint/cli": "^17.1.2",
+    "@commitlint/config-conventional": "^17.1.0",
+    "@osjs/dev-meta": "^2.1.0",
+    "husky": "^8.0.1"
   },
   "bugs": {
     "url": "https://github.com/os-js/osjs-dialogs/issues"
@@ -84,6 +88,11 @@
       {
         "name": "esdoc-publish-html-plugin"
       }
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
     ]
   }
 }
