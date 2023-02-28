@@ -213,7 +213,7 @@ export default class FileDialog extends Dialog {
           box: {grow: 1, shrink: 1}
         }, state.listview), actions.listview)),
         h(TextField, {
-          placeholder: 'Filename',
+          placeholder: this.args.filetype === 'directory' ? 'Directory Name' : 'File Name',
           value: state.filename,
           onenter: (ev, value) => this.emitCallback(this.getPositiveButton(), ev, true),
           oninput: (ev) => {
