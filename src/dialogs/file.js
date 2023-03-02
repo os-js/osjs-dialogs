@@ -127,9 +127,7 @@ export default class FileDialog extends Dialog {
           }]
         }),
         buttons: {
-          ok: this.args.filetype === 'directory'
-            ? true
-            : !!this.args.filename
+          ok: !!this.args.filename
         }
       }, {
         _readdir: ({path, files}) => (state, actions) => {
