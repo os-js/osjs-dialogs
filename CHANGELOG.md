@@ -1,5 +1,9 @@
 # Changelog for osjs-dialog
 
+## 3.2.1 - 2023-03-08
+
+* fix(file): revert ok button behaviour for open dialogs
+
 ## 3.2.0 - 2023-03-02
 
 * fix(file): disable OK button when no directory name is selected initially
