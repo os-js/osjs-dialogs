@@ -1,5 +1,9 @@
 # Changelog for osjs-dialog
 
+## 3.2.2 - 2024-01-25
+
+* fix: alert message bug
+
 ## 3.2.1 - 2023-03-08
 
 * fix(file): revert ok button behaviour for open dialogs
